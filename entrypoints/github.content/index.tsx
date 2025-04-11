@@ -7,6 +7,8 @@ import ReactDOM from "react-dom/client"
 // NOTE: `@primer/react` の依存関係である `@primer/live-region-element` で `customElements` が参照されているが、コンテンツスクリプトからは使用できずエラーになってしまうのでこれで代替
 import "@webcomponents/custom-elements"
 
+import { StyleSheetManager } from "styled-components"
+
 import "@primer/primitives/dist/css/functional/themes/light.css"
 import { BaseStyles, ThemeProvider } from "@primer/react"
 
@@ -77,23 +79,26 @@ async function main(ctx: ContentScriptContext) {
         `:has(> [title="${filePath}"])`,
       ].join(","),
 
-      onMount: (container) => {
+      onMount: (container, shadow) => {
         const app = document.createElement("div")
         container.append(app)
 
+        const cssContainer = shadow.querySelector("head")!
         const root = ReactDOM.createRoot(app)
         root.render(
-          <ThemeProvider>
-            <BaseStyles>
-              <CopyButton
-                size="small"
-                text={renderToMarkup(patch)}
-                feedback="Copied!"
-              >
-                Copy markup
-              </CopyButton>
-            </BaseStyles>
-          </ThemeProvider>,
+          <StyleSheetManager target={cssContainer}>
+            <ThemeProvider>
+              <BaseStyles>
+                <CopyButton
+                  size="small"
+                  text={renderToMarkup(patch)}
+                  feedback="Copied!"
+                >
+                  Copy markup
+                </CopyButton>
+              </BaseStyles>
+            </ThemeProvider>
+          </StyleSheetManager>,
         )
 
         return root
