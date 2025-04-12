@@ -109,6 +109,6 @@ async function main(ctx: ContentScriptContext) {
       },
     })
 
-    ui.mount()
+    ui.autoMount()
   }
 }
