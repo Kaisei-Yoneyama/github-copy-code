@@ -2,17 +2,18 @@ import type { ContentScriptContext } from "wxt/utils/content-script-context"
 import { renderToMarkup } from "@/entrypoints/github.content/markup"
 import { sendMessage } from "@/entrypoints/background/messaging"
 import { parsePatch, type ParsedDiff } from "diff"
+import type { ComponentProps } from "react"
 import ReactDOM from "react-dom/client"
 
 // NOTE: `@primer/react` の依存関係である `@primer/live-region-element` で `customElements` が参照されているが、コンテンツスクリプトからは使用できずエラーになってしまうのでこれで代替
 import "@webcomponents/custom-elements"
 
 import { StyleSheetManager } from "styled-components"
-
-import "@primer/primitives/dist/css/functional/themes/light.css"
 import { BaseStyles, ThemeProvider } from "@primer/react"
 
 import { CopyButton } from "@/components/CopyButton"
+
+import "@/entrypoints/github.content/style.css"
 
 export default defineContentScript({
   cssInjectionMode: "ui",
@@ -80,6 +81,14 @@ async function main(ctx: ContentScriptContext) {
       ].join(","),
 
       onMount: (container, shadow) => {
+        type ThemeProviderProps = ComponentProps<typeof ThemeProvider>
+
+        const {
+          colorMode = "auto",
+          lightTheme: dayScheme = "light",
+          darkTheme: nightScheme = "dark",
+        } = document.documentElement.dataset
+
         const app = document.createElement("div")
         container.append(app)
 
@@ -87,7 +96,12 @@ async function main(ctx: ContentScriptContext) {
         const root = ReactDOM.createRoot(app)
         root.render(
           <StyleSheetManager target={cssContainer}>
-            <ThemeProvider>
+            <ThemeProvider
+              // TODO: バリデーションを行い、型アサーションを外す
+              colorMode={colorMode as ThemeProviderProps["colorMode"]}
+              dayScheme={dayScheme as ThemeProviderProps["dayScheme"]}
+              nightScheme={nightScheme as ThemeProviderProps["nightScheme"]}
+            >
               <BaseStyles>
                 <CopyButton
                   size="small"
