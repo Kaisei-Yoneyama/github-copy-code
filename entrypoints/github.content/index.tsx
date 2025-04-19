@@ -76,7 +76,7 @@ async function main(ctx: ContentScriptContext) {
       position: "inline",
 
       anchor: [
-        `[aria-label="collapse file: ${filePath}"] + *`,
+        `[aria-label="Collapse file: ${filePath}" i] + *`,
         `:has(> [title="${filePath}"])`,
       ].join(","),
 
