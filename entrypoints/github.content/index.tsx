@@ -123,6 +123,6 @@ async function main(ctx: ContentScriptContext) {
       },
     })
 
-    ui.autoMount()
+    ui.mount()
   }
 }
