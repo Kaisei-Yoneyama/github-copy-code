@@ -1,7 +1,7 @@
 import type { ContentScriptContext } from "wxt/utils/content-script-context"
 import { renderToMarkup } from "@/entrypoints/github.content/markup"
 import { sendMessage } from "@/entrypoints/background/messaging"
-import { parsePatch, type ParsedDiff } from "diff"
+import { parsePatch, type StructuredPatch } from "diff"
 import type { ComponentProps } from "react"
 import ReactDOM from "react-dom/client"
 
@@ -52,7 +52,7 @@ async function main(ctx: ContentScriptContext) {
     return
   }
 
-  let structuredPatch: ParsedDiff[]
+  let structuredPatch: StructuredPatch[]
 
   try {
     const diffUrl = new URL(diffPath, location.origin)

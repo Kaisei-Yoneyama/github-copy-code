@@ -1,4 +1,4 @@
-import type { ParsedDiff } from "diff"
+import type { StructuredPatch } from "diff"
 import mustache from "mustache"
 
 // すべてのエスケープを無効化する
@@ -17,7 +17,7 @@ export const renderToMarkup = ({
   newFileName = "",
   oldFileName = "",
   hunks,
-}: ParsedDiff) => {
+}: StructuredPatch) => {
   const isAdded = oldFileName === "/dev/null"
   const isDeleted = newFileName === "/dev/null"
   const isModified = !isAdded && !isDeleted

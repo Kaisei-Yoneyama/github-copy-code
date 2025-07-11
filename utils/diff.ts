@@ -1,10 +1,10 @@
-import type { ParsedDiff } from "diff"
+import type { StructuredPatch } from "diff"
 
-export const getFilePath = ({ newFileName, oldFileName }: ParsedDiff) => {
-  if (newFileName === "/dev/null") newFileName = undefined
-  if (oldFileName === "/dev/null") oldFileName = undefined
+export const getFilePath = ({ newFileName, oldFileName }: StructuredPatch) => {
+  const newFilePath = newFileName === "/dev/null" ? undefined : newFileName
+  const oldFilePath = oldFileName === "/dev/null" ? undefined : oldFileName
 
-  const filePathWithPrefix = newFileName ?? oldFileName ?? ""
+  const filePathWithPrefix = newFilePath ?? oldFilePath ?? ""
   const filePath = filePathWithPrefix.replace(/^[ab]\//, "")
 
   return filePath
