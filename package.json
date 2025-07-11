@@ -1,6 +1,6 @@
 {
-  "name": "wxt-react-starter",
-  "description": "manifest.json description",
+  "name": "github-copy-code",
+  "description": "GitHub の差分ページでコードをクリップボードにコピーできるようにするブラウザー拡張機能",
   "private": true,
   "version": "0.0.0",
   "type": "module",

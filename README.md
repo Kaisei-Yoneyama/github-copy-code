@@ -1,3 +1,9 @@
-# WXT + React
+# github-copy-code
 
-This template should help get you started developing with React in WXT.
+GitHub の差分ページでコードをクリップボードにコピーできるようにするブラウザー拡張機能
+
+## 対応ページ
+
+- `/{owner}/{repo}/commit/{commit_sha}`
+- `/{owner}/{repo}/pull/{pull_number}/files`
+- `/{owner}/{repo}/pull/{pull_number}/commits/{commit_sha}`
