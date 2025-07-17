@@ -105,7 +105,7 @@ async function main(ctx: ContentScriptContext) {
               <BaseStyles>
                 <CopyButton
                   size="small"
-                  text={renderToMarkup(patch)}
+                  text={() => renderToMarkup(patch)}
                   feedback="Copied!"
                 >
                   Copy markup
