@@ -39,9 +39,14 @@ export default defineContentScript({
 
     await executeIfMatched(location)
 
-    ctx.addEventListener(window, "wxt:locationchange", async ({ newUrl }) => {
-      await executeIfMatched(newUrl)
-    })
+    ctx.addEventListener(
+      window,
+      "wxt:locationchange",
+      async ({ newUrl, oldUrl }) => {
+        if (oldUrl.pathname === newUrl.pathname) return
+        await executeIfMatched(newUrl)
+      },
+    )
   },
 })
 
