@@ -3,6 +3,7 @@ import Container from "react-bootstrap/Container"
 import Navbar from "react-bootstrap/Navbar"
 import { TemplateFormModal } from "./components/TemplateFormModal"
 import { TemplateList } from "./components/TemplateList"
+import { TemplateTransfer } from "./components/TemplateTransfer"
 import { useTemplates } from "./hooks/useTemplates"
 
 function App() {
@@ -43,6 +44,12 @@ function App() {
     setEditingTemplate(null)
   }
 
+  const handleImport = async (importedTemplates: Template[]) => {
+    for (const template of importedTemplates) {
+      await createTemplate(template)
+    }
+  }
+
   return (
     <>
       <Navbar className="bg-body-tertiary">
@@ -60,6 +67,8 @@ function App() {
           onDelete={deleteTemplate}
           onSetDefault={setDefaultTemplate}
         />
+        <hr className="my-3" />
+        <TemplateTransfer templates={templates} onImport={handleImport} />
       </Container>
       <TemplateFormModal
         show={showModal}
