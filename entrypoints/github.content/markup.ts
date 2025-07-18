@@ -4,16 +4,31 @@ import mustache from "mustache"
 // すべてのエスケープを無効化する
 mustache.escape = (text) => text
 
-// TODO: テンプレートをポップアップで編集できるようにする
-const template = `
+const SAMPLE_TEMPLATE = `
+<!-- Sample template -->
 {{#hunkList}}
-{{#collapseWhitespace}}~~~{{langId}} {{#isFirst}}filePath={{filePath}}{{/isFirst}} newStart={{newStart}} oldStart={{oldStart}}{{/collapseWhitespace}}
+{{#collapseWhitespace}}\`\`\`{{langId}} {{#isFirst}}filePath={{filePath}}{{/isFirst}} newStart={{newStart}} oldStart={{oldStart}}{{/collapseWhitespace}}
 {{code}}
-~~~
+\`\`\`
 {{/hunkList}}
 `
 
-export const renderToMarkup = ({
+const getTemplate = async (): Promise<string> => {
+  try {
+    const templatesRepo = getTemplatesRepo()
+    const defaultTemplate = await templatesRepo.getDefault()
+
+    if (defaultTemplate) {
+      return defaultTemplate.content
+    }
+  } catch (error) {
+    console.error("Failed to get default template:", error)
+  }
+
+  return SAMPLE_TEMPLATE
+}
+
+export const renderToMarkup = async ({
   newFileName = "",
   oldFileName = "",
   hunks,
@@ -77,5 +92,6 @@ export const renderToMarkup = ({
       },
   }
 
+  const template = await getTemplate()
   return mustache.render(template, view)
 }
