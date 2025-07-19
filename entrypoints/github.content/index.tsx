@@ -9,7 +9,7 @@ import ReactDOM from "react-dom/client"
 import "@webcomponents/custom-elements"
 
 import { StyleSheetManager } from "styled-components"
-import { BaseStyles, ThemeProvider } from "@primer/react"
+import { BaseStyles, ThemeProvider, ButtonGroup } from "@primer/react"
 
 import { CopyButton } from "@/components/CopyButton"
 
@@ -108,13 +108,51 @@ async function main(ctx: ContentScriptContext) {
               nightScheme={nightScheme as ThemeProviderProps["nightScheme"]}
             >
               <BaseStyles>
-                <CopyButton
-                  size="small"
-                  text={() => renderToMarkup(patch)}
-                  feedback="Copied!"
-                >
-                  Copy markup
-                </CopyButton>
+                {toRawContentPath(location.pathname, filePath) ? (
+                  <ButtonGroup>
+                    <CopyButton
+                      size="small"
+                      text={() => renderToMarkup(patch)}
+                      feedback="Copied!"
+                    >
+                      Copy markup
+                    </CopyButton>
+                    <CopyButton
+                      size="small"
+                      text={async () => {
+                        const rawContentPath = toRawContentPath(
+                          location.pathname,
+                          filePath,
+                        )
+
+                        if (!rawContentPath) {
+                          throw new Error("Failed to get raw content path")
+                        }
+
+                        const rawContentUrl = new URL(
+                          rawContentPath,
+                          location.origin,
+                        )
+                        const rawContent = await sendMessage(
+                          "fetchUrl",
+                          rawContentUrl,
+                        )
+                        return rawContent
+                      }}
+                      feedback="Copied!"
+                    >
+                      Copy raw content
+                    </CopyButton>
+                  </ButtonGroup>
+                ) : (
+                  <CopyButton
+                    size="small"
+                    text={() => renderToMarkup(patch)}
+                    feedback="Copied!"
+                  >
+                    Copy markup
+                  </CopyButton>
+                )}
               </BaseStyles>
             </ThemeProvider>
           </StyleSheetManager>,
