@@ -1,14 +1,11 @@
 import type { StructuredPatch } from "diff"
 import mustache from "mustache"
 
-// すべてのエスケープを無効化する
-mustache.escape = (text) => text
-
 const SAMPLE_TEMPLATE = `
 <!-- Sample template -->
 {{#hunkList}}
 {{#collapseWhitespace}}\`\`\`{{langId}} {{#isFirst}}filePath={{filePath}}{{/isFirst}} newStart={{newStart}} oldStart={{oldStart}}{{/collapseWhitespace}}
-{{code}}
+{{{code}}}
 \`\`\`
 {{/hunkList}}
 `
