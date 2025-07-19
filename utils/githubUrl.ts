@@ -47,3 +47,28 @@ export const toDiffPath = (pathname: string) => {
 
   return null
 }
+
+/**
+ * 差分ページのパスをもとに Raw ファイルのパスを返す
+ * 変換できない場合は `null` を返す
+ * @param pathname 差分ページのパス
+ * @param filePath ファイルのパス
+ * @returns Raw ファイルのパス
+ */
+export const toRawContentPath = (pathname: string, filePath: string) => {
+  const commitPathMatch = pathname.match(commitPathRegex)
+
+  if (commitPathMatch?.groups) {
+    const { owner, repo, commit_sha } = commitPathMatch.groups
+    return `/${owner}/${repo}/raw/${commit_sha}/${filePath}`
+  }
+
+  const pullCommitsPathMatch = pathname.match(pullCommitsPathRegex)
+
+  if (pullCommitsPathMatch?.groups) {
+    const { owner, repo, commit_sha } = pullCommitsPathMatch.groups
+    return `/${owner}/${repo}/raw/${commit_sha}/${filePath}`
+  }
+
+  return null
+}
