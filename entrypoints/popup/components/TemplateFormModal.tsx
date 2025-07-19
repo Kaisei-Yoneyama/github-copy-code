@@ -118,7 +118,7 @@ export const TemplateFormModal = ({
               as="textarea"
               name="content"
               rows={10}
-              placeholder="{{#hunkList}}&#13;{{#collapseWhitespace}}```{{langId}} {{#isFirst}}filePath={{filePath}}{{/isFirst}} newStart={{newStart}} oldStart={{oldStart}}{{/collapseWhitespace}}&#13;{{code}}&#13;```&#13;{{/hunkList}}"
+              placeholder="{{#hunkList}}&#13;{{#collapseWhitespace}}```{{langId}} {{#isFirst}}filePath={{filePath}}{{/isFirst}} newStart={{newStart}} oldStart={{oldStart}}{{/collapseWhitespace}}&#13;{{{code}}}&#13;```&#13;{{/hunkList}}"
               style={{ fontFamily: "monospace" }}
               value={content}
               onChange={(e) => setContent(e.target.value)}

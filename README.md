@@ -23,7 +23,7 @@ GitHub の差分ページでコードをクリップボードにコピーでき�
 > <!-- Sample template -->
 > {{#hunkList}}
 > {{#collapseWhitespace}}```{{langId}} {{#isFirst}}filePath={{filePath}}{{/isFirst}} newStart={{newStart}} oldStart={{oldStart}}{{/collapseWhitespace}}
-> {{code}}
+> {{{code}}}
 > ```
 > {{/hunkList}}
 > ````
@@ -66,7 +66,8 @@ Mustache テンプレートエンジンを使用しているため、任意の�
 #### `{{code}}`
 
 - タグ種別: Variable
-- 説明: コードブロックの内容を表します。
+- 説明: コードブロックの内容を表します。  
+  HTML エスケープが不要な場合は `{{{code}}}` を使用してください。  
   変更 (modified) の場合は行頭に `+` や `-` が付きますが、追加 (added) や削除 (deleted) の場合は付きません。
 
 #### `{{langId}}`
@@ -116,7 +117,7 @@ Mustache テンプレートエンジンを使用しているため、任意の�
 ````mustache
 {{#hunkList}}
 {{#collapseWhitespace}}```{{langId}} {{#isFirst}}filePath={{filePath}}{{/isFirst}} newStart={{newStart}} oldStart={{oldStart}}{{/collapseWhitespace}}
-{{code}}
+{{{code}}}
 ```
 {{/hunkList}}
 ````
