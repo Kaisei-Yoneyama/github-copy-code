@@ -137,6 +137,6 @@ const createTemplatesRepo = (db: Promise<IDBPDatabase>): TemplatesRepo => {
 }
 
 export const [registerTemplatesRepo, getTemplatesRepo] = defineProxyService(
-  "templates-repo",
+  "templatesRepo",
   createTemplatesRepo,
 )
