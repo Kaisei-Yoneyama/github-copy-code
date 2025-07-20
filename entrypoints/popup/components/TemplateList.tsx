@@ -1,3 +1,6 @@
+import { PenFillIcon } from "@/components/icons/PenFillIcon"
+import { StarFillIcon } from "@/components/icons/StarFillIcon"
+import { TrashFillIcon } from "@/components/icons/TrashFillIcon"
 import Alert from "react-bootstrap/Alert"
 import Badge from "react-bootstrap/Badge"
 import Button from "react-bootstrap/Button"
@@ -86,7 +89,7 @@ export const TemplateList = ({
                         type="button"
                         onClick={() => onSetDefault(template.id)}
                       >
-                        <i className="bi bi-star-fill"></i>
+                        <StarFillIcon />
                       </Button>
                     )}
                     <Button
@@ -94,14 +97,14 @@ export const TemplateList = ({
                       type="button"
                       onClick={() => onEdit(template)}
                     >
-                      <i className="bi bi-pen-fill"></i>
+                      <PenFillIcon />
                     </Button>
                     <Button
                       variant="danger"
                       type="button"
                       onClick={() => onDelete(template.id)}
                     >
-                      <i className="bi bi-trash-fill"></i>
+                      <TrashFillIcon />
                     </Button>
                   </ButtonGroup>
                   <small className="text-body-secondary">
