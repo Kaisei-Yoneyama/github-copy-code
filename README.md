@@ -121,3 +121,29 @@ Mustache テンプレートエンジンを使用しているため、任意の�
 ```
 {{/hunkList}}
 ````
+
+## デプロイ
+
+この拡張機能は GitHub Actions を使用して自動的にデプロイされます。
+
+### 自動デプロイ
+
+- `main` ブランチにプッシュされた際に自動的にワークフローが実行されます。
+- `package.json` のバージョンが変更されている場合のみデプロイが実行されます。
+  - Chrome Web Store への自動アップロードとリリースの作成が行われます。
+
+以下のシークレットを設定する必要があります。
+
+- `EXTENSION_ID`: Chrome Web Store 拡張機能 ID
+- `CLIENT_ID`: Google クライアント ID
+- `CLIENT_SECRET`: Google クライアントシークレット
+- `REFRESH_TOKEN`: Google リフレッシュトークン
+
+### 手動デプロイ
+
+ローカルでビルドしてデプロイする場合は以下のコマンドを実行してください。  
+生成された ZIP ファイルは `.output` ディレクトリに出力されます。
+
+```bash
+npm run zip
+```
