@@ -6,7 +6,7 @@ import { TemplateList } from "./components/TemplateList"
 import { TemplateTransfer } from "./components/TemplateTransfer"
 import { useTemplates } from "./hooks/useTemplates"
 
-function App() {
+const App = () => {
   const {
     templates,
     loading,

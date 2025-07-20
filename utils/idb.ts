@@ -1,6 +1,6 @@
 import { IDBPDatabase, openDB } from "idb"
 
-export function openExtensionDatabase(): Promise<IDBPDatabase> {
+export const openExtensionDatabase = (): Promise<IDBPDatabase> => {
   return openDB("githubCopyCode", 1, {
     upgrade(database) {
       database

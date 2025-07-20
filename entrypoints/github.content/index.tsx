@@ -50,7 +50,7 @@ export default defineContentScript({
   },
 })
 
-async function main(ctx: ContentScriptContext) {
+const main = async (ctx: ContentScriptContext) => {
   const diffPath = toDiffPath(location.pathname)
 
   if (!diffPath) {

@@ -64,7 +64,7 @@ const fromDB = (template: TemplateDB): Template => ({
   isDefault: !!template.isDefault,
 })
 
-function createTemplatesRepo(db: Promise<IDBPDatabase>): TemplatesRepo {
+const createTemplatesRepo = (db: Promise<IDBPDatabase>): TemplatesRepo => {
   const storeName = "templates"
   const indexName = "isDefault"
 
