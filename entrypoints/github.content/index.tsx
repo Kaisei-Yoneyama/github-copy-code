@@ -111,6 +111,7 @@ const main = async (ctx: ContentScriptContext) => {
                 {toRawContentPath(location.pathname, filePath) ? (
                   <ButtonGroup>
                     <CopyButton
+                      id="copy-markup-button"
                       size="small"
                       text={() => renderToMarkup(patch)}
                       feedback="Copied!"
@@ -118,6 +119,7 @@ const main = async (ctx: ContentScriptContext) => {
                       Copy markup
                     </CopyButton>
                     <CopyButton
+                      id="copy-raw-content-button"
                       size="small"
                       text={async () => {
                         const rawContentPath = toRawContentPath(
@@ -146,6 +148,7 @@ const main = async (ctx: ContentScriptContext) => {
                   </ButtonGroup>
                 ) : (
                   <CopyButton
+                    id="copy-markup-button"
                     size="small"
                     text={() => renderToMarkup(patch)}
                     feedback="Copied!"
