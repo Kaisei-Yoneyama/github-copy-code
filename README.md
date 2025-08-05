@@ -43,6 +43,57 @@ GitHub の差分ページでコードをクリップボードにコピーでき�
 npm run zip
 ```
 
+## テスト
+
+この拡張機能にはユニットテストと E2E テストが実装されています。
+
+### 実行方法
+
+```bash
+# ユニットテストを実行
+npm test
+
+# ユニットテストをウォッチモードで実行
+npm run test:watch
+
+# E2E テストを実行
+npm run test:e2e
+
+# E2E テストを UI モードで実行
+npm run test:e2e:ui
+
+# すべてのテストを実行
+npm run test:all
+```
+
+### テスト構成
+
+#### ユニットテスト (Vitest)
+
+- `tests/unit/diff.test.ts`
+  - パッチからファイルパスを抽出するテスト
+- `tests/unit/markup.test.ts`
+  - テンプレートのレンダリングのテスト
+- `tests/setup.ts`
+  - 共通のモックの設定など
+
+#### E2E テスト (Playwright)
+
+- `tests/e2e/basic.spec.ts`
+  - コピーボタンの表示のテスト
+  - コピーボタンのクリップボードへのコピーのテスト
+  - 対応するすべてのページでの動作確認：
+    - `/{owner}/{repo}/pull/{pull_number}/files`
+    - `/{owner}/{repo}/pull/{pull_number}/commits/{commit_sha}`
+    - `/{owner}/{repo}/commit/{commit_sha}`
+- `tests/e2e/fixtures.ts`
+  - 拡張機能の読み込みと関連するブラウザーの設定など
+
+### テスト設定
+
+- `vitest.config.ts`
+- `playwright.config.ts`
+
 ## テンプレートの管理
 
 拡張機能のポップアップからテンプレートを管理できます。  
