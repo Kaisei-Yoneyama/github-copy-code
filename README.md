@@ -1,5 +1,8 @@
 # github-copy-code
 
+[![Test](https://github.com/Kaisei-Yoneyama/github-copy-code/actions/workflows/test.yml/badge.svg)](https://github.com/Kaisei-Yoneyama/github-copy-code/actions/workflows/test.yml)
+[![Deploy](https://github.com/Kaisei-Yoneyama/github-copy-code/actions/workflows/deploy.yml/badge.svg)](https://github.com/Kaisei-Yoneyama/github-copy-code/actions/workflows/deploy.yml)
+
 GitHub の差分ページでコードをクリップボードにコピーできるようにするブラウザー拡張機能
 
 ## 技術スタック
