@@ -1,9 +1,18 @@
+import { PlusIcon } from "@primer/octicons-react"
+import {
+  BaseStyles,
+  Button,
+  ButtonGroup,
+  PageHeader,
+  PageLayout,
+  ThemeProvider,
+} from "@primer/react"
+import { Banner } from "@primer/react/experimental"
 import { useState } from "react"
-import Container from "react-bootstrap/Container"
-import Navbar from "react-bootstrap/Navbar"
-import { TemplateFormModal } from "./components/TemplateFormModal"
+import { ExportButton } from "./components/ExportButton"
+import { ImportButton } from "./components/ImportButton"
+import { TemplateFormDialog } from "./components/TemplateFormDialog"
 import { TemplateList } from "./components/TemplateList"
-import { TemplateTransfer } from "./components/TemplateTransfer"
 import { useTemplates } from "./hooks/useTemplates"
 
 const App = () => {
@@ -17,17 +26,21 @@ const App = () => {
     setDefaultTemplate,
   } = useTemplates()
 
-  const [showModal, setShowModal] = useState(false)
+  const [showDialog, setShowDialog] = useState(false)
   const [editingTemplate, setEditingTemplate] = useState<Template | null>(null)
+  const [alert, setAlert] = useState<{
+    variant: "success" | "critical"
+    message: string
+  } | null>(null)
 
   const handleCreate = () => {
     setEditingTemplate(null)
-    setShowModal(true)
+    setShowDialog(true)
   }
 
   const handleEdit = (template: Template) => {
     setEditingTemplate(template)
-    setShowModal(true)
+    setShowDialog(true)
   }
 
   const handleSave = async (data: Pick<Template, "name" | "content">) => {
@@ -36,11 +49,11 @@ const App = () => {
     } else {
       await createTemplate(data)
     }
-    setShowModal(false)
+    setShowDialog(false)
   }
 
   const handleClose = () => {
-    setShowModal(false)
+    setShowDialog(false)
     setEditingTemplate(null)
   }
 
@@ -50,33 +63,75 @@ const App = () => {
     }
   }
 
+  const handleAlertSuccess = (message: string) => {
+    setAlert({ variant: "success", message })
+  }
+
+  const handleAlertError = (message: string) => {
+    setAlert({ variant: "critical", message })
+  }
+
   return (
-    <>
-      <Navbar className="bg-body-tertiary">
-        <Container fluid>
-          <Navbar.Brand>GitHub Copy Code</Navbar.Brand>
-        </Container>
-      </Navbar>
-      <Container fluid className="py-3">
-        <TemplateList
-          templates={templates}
-          loading={loading}
-          error={error}
-          onCreate={handleCreate}
-          onEdit={handleEdit}
-          onDelete={deleteTemplate}
-          onSetDefault={setDefaultTemplate}
-        />
-        <hr className="my-3" />
-        <TemplateTransfer templates={templates} onImport={handleImport} />
-      </Container>
-      <TemplateFormModal
-        show={showModal}
-        template={editingTemplate}
-        onSave={handleSave}
-        onClose={handleClose}
-      />
-    </>
+    <ThemeProvider colorMode="auto" dayScheme="light" nightScheme="dark">
+      <BaseStyles>
+        <PageLayout>
+          <PageLayout.Header>
+            <PageHeader>
+              <PageHeader.TitleArea>
+                <PageHeader.Title>GitHub Copy Code</PageHeader.Title>
+              </PageHeader.TitleArea>
+              <PageHeader.Actions>
+                <ButtonGroup>
+                  <ExportButton
+                    templates={templates}
+                    onSuccess={handleAlertSuccess}
+                    onError={handleAlertError}
+                  />
+                  <ImportButton
+                    onImport={handleImport}
+                    onSuccess={handleAlertSuccess}
+                    onError={handleAlertError}
+                  />
+                </ButtonGroup>
+                <Button
+                  variant="primary"
+                  leadingVisual={PlusIcon}
+                  onClick={handleCreate}
+                >
+                  New template
+                </Button>
+              </PageHeader.Actions>
+            </PageHeader>
+          </PageLayout.Header>
+          <PageLayout.Content>
+            {alert && (
+              <Banner
+                title={alert.variant === "success" ? "Success" : "Error"}
+                variant={alert.variant}
+                description={alert.message}
+                onDismiss={() => setAlert(null)}
+                style={{ marginBottom: 16 }}
+              />
+            )}
+            <TemplateList
+              templates={templates}
+              loading={loading}
+              error={error}
+              onEdit={handleEdit}
+              onDelete={deleteTemplate}
+              onSetDefault={setDefaultTemplate}
+            />
+          </PageLayout.Content>
+        </PageLayout>
+        {showDialog && (
+          <TemplateFormDialog
+            template={editingTemplate}
+            onSave={handleSave}
+            onClose={handleClose}
+          />
+        )}
+      </BaseStyles>
+    </ThemeProvider>
   )
 }
 
