@@ -64,6 +64,18 @@ export const TemplateList = ({
     return b.updatedAt - a.updatedAt
   })
 
+  const handleDelete = async (template: Template) => {
+    const confirmed = await confirm({
+      title: "Delete template",
+      content: `Are you sure you want to delete "${template.name}"? This action cannot be undone.`,
+      confirmButtonContent: "Delete",
+      confirmButtonType: "danger",
+    })
+    if (confirmed) {
+      onDelete(template.id)
+    }
+  }
+
   return (
     <>
       <div
@@ -110,39 +122,46 @@ export const TemplateList = ({
               align="center"
               justify="space-between"
             >
-              <ButtonGroup>
-                {!template.isDefault && (
+              {/* NOTE: <ButtonGroup /> の中で条件付きレンダーすると、左側のボタンが角丸にならない問題があるため、とりあえず別々の <ButtonGroup /> にして回避 */}
+              {template.isDefault ? (
+                <ButtonGroup>
+                  <IconButton
+                    size="small"
+                    icon={PencilIcon}
+                    aria-label="Edit template"
+                    onClick={() => onEdit(template)}
+                  />
+                  <IconButton
+                    size="small"
+                    variant="danger"
+                    icon={TrashIcon}
+                    aria-label="Delete template"
+                    onClick={() => handleDelete(template)}
+                  />
+                </ButtonGroup>
+              ) : (
+                <ButtonGroup>
                   <IconButton
                     size="small"
                     icon={StarIcon}
                     aria-label="Set as default template"
                     onClick={() => onSetDefault(template.id)}
                   />
-                )}
-                <IconButton
-                  size="small"
-                  icon={PencilIcon}
-                  aria-label="Edit template"
-                  onClick={() => onEdit(template)}
-                />
-                <IconButton
-                  size="small"
-                  variant="danger"
-                  icon={TrashIcon}
-                  aria-label="Delete template"
-                  onClick={async () => {
-                    const confirmed = await confirm({
-                      title: "Delete template",
-                      content: `Are you sure you want to delete "${template.name}"? This action cannot be undone.`,
-                      confirmButtonContent: "Delete",
-                      confirmButtonType: "danger",
-                    })
-                    if (confirmed) {
-                      onDelete(template.id)
-                    }
-                  }}
-                />
-              </ButtonGroup>
+                  <IconButton
+                    size="small"
+                    icon={PencilIcon}
+                    aria-label="Edit template"
+                    onClick={() => onEdit(template)}
+                  />
+                  <IconButton
+                    size="small"
+                    variant="danger"
+                    icon={TrashIcon}
+                    aria-label="Delete template"
+                    onClick={() => handleDelete(template)}
+                  />
+                </ButtonGroup>
+              )}
               <Tooltip
                 text={new Date(template.updatedAt).toLocaleString()}
                 direction="w"
