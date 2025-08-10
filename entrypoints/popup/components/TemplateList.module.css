@@ -1,0 +1,35 @@
+/* グリッド */
+.templateGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+}
+
+/* カード */
+.templateCard {
+  border: 1px solid var(--borderColor-default);
+  border-radius: 6px;
+  padding: 16px;
+}
+
+.templateCard[data-default="true"] {
+  border-color: var(--borderColor-accent-emphasis);
+}
+
+/* コードブロック */
+.codeBlock {
+  margin: 0 0 16px 0;
+  padding: 12px;
+  background-color: var(--bgColor-muted);
+  border: 1px solid var(--borderColor-default);
+  border-radius: 6px;
+  max-height: 120px;
+  overflow-y: auto;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 640px) {
+  .templateGrid {
+    grid-template-columns: 1fr;
+  }
+}

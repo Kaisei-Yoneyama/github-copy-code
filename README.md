@@ -11,7 +11,6 @@ GitHub の差分ページでコードをクリップボードにコピーでき�
 ![React](https://img.shields.io/badge/React-19.1.0-61DAFB?style=for-the-badge&logo=react)
 ![WXT](https://img.shields.io/badge/WXT-0.20.7-FF6000?style=for-the-badge&logo=wxt)
 ![Primer](https://img.shields.io/badge/Primer-37.28.0-24292e?style=for-the-badge&logo=github)
-![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3.7-7952B3?style=for-the-badge&logo=bootstrap)
 ![Mustache](https://img.shields.io/badge/Mustache-4.2.0-000000?style=for-the-badge)
 
 ## 対応ページ
@@ -89,6 +88,11 @@ npm run test:all
     - `/{owner}/{repo}/pull/{pull_number}/files`
     - `/{owner}/{repo}/pull/{pull_number}/commits/{commit_sha}`
     - `/{owner}/{repo}/commit/{commit_sha}`
+- `tests/e2e/popup.spec.ts`
+  - ポップアップのテンプレート管理機能のテスト
+  - テンプレートの作成、編集、削除、デフォルト設定のテスト
+- `tests/e2e/pages/popup.ts`
+  - ポップアップのページオブジェクトモデル
 - `tests/e2e/fixtures.ts`
   - 拡張機能の読み込みと関連するブラウザーの設定など
 
