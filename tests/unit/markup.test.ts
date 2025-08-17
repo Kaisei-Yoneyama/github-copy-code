@@ -11,14 +11,13 @@ const TEST_TEMPLATE = `
 {{/hunkList}}
 `
 
-// templatesRepo のモック
-vi.mock("@/utils/templatesRepo", () => ({
-  getTemplatesRepo: vi.fn(() => ({
-    getDefault: vi.fn().mockResolvedValue({
+// templatesService のモック
+vi.mock("@/utils/templatesService", () => ({
+  getTemplatesService: vi.fn(() => ({
+    getDefaultTemplate: vi.fn().mockResolvedValue({
       id: "test-template",
       name: "Test Template",
       content: TEST_TEMPLATE,
-      isDefault: true,
       createdAt: Date.now(),
       updatedAt: Date.now(),
     }),

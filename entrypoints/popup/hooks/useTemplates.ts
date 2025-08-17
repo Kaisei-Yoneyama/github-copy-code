@@ -1,8 +1,12 @@
 import { useCallback, useEffect, useState } from "react"
 
 export const useTemplates = () => {
-  const templatesRepo = getTemplatesRepo()
+  const templatesService = getTemplatesService()
+  const settingsService = getSettingsService()
   const [templates, setTemplates] = useState<Template[]>([])
+  const [defaultTemplateId, setDefaultTemplateId] = useState<string | null>(
+    null,
+  )
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
@@ -10,8 +14,12 @@ export const useTemplates = () => {
     try {
       setLoading(true)
       setError(null)
-      const allTemplates = await templatesRepo.getAll()
+      const [allTemplates, defaultTemplateId] = await Promise.all([
+        templatesService.getAllTemplates(),
+        settingsService.getDefaultTemplateId(),
+      ])
       setTemplates(allTemplates)
+      setDefaultTemplateId(defaultTemplateId)
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to load templates")
     } finally {
@@ -26,14 +34,10 @@ export const useTemplates = () => {
   const createTemplate = useCallback(
     async (template: Pick<Template, "name" | "content">) => {
       try {
-        const newTemplate = {
-          ...template,
-          id: crypto.randomUUID(),
-          isDefault: false,
-          createdAt: Date.now(),
-          updatedAt: Date.now(),
-        } as const satisfies Template
-        await templatesRepo.createOrUpdate(newTemplate)
+        const newTemplate = await templatesService.createTemplate(
+          template.name,
+          template.content,
+        )
         await loadTemplates()
         return newTemplate
       } catch (err) {
@@ -48,18 +52,11 @@ export const useTemplates = () => {
   const updateTemplate = useCallback(
     async (id: string, template: Pick<Template, "name" | "content">) => {
       try {
-        const existing = await templatesRepo.getOne(id)
-
-        if (!existing) {
-          throw new Error("Template not found")
-        }
-
-        const updatedTemplate = {
-          ...existing,
-          ...template,
-          updatedAt: Date.now(),
-        } as const satisfies Template
-        await templatesRepo.createOrUpdate(updatedTemplate)
+        const updatedTemplate = await templatesService.updateTemplate(
+          id,
+          template.name,
+          template.content,
+        )
         await loadTemplates()
         return updatedTemplate
       } catch (err) {
@@ -73,7 +70,7 @@ export const useTemplates = () => {
 
   const deleteTemplate = useCallback(async (id: string) => {
     try {
-      await templatesRepo.delete(id)
+      await templatesService.deleteTemplate(id)
       await loadTemplates()
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to delete template")
@@ -82,7 +79,7 @@ export const useTemplates = () => {
 
   const setDefaultTemplate = useCallback(async (id: string) => {
     try {
-      await templatesRepo.setDefault(id)
+      await templatesService.setDefaultTemplate(id)
       await loadTemplates()
     } catch (err) {
       setError(
@@ -93,6 +90,7 @@ export const useTemplates = () => {
 
   return {
     templates,
+    defaultTemplateId,
     loading,
     error,
     createTemplate,

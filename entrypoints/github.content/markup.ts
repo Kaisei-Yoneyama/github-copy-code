@@ -12,8 +12,8 @@ const SAMPLE_TEMPLATE = `
 
 const getTemplate = async (): Promise<string> => {
   try {
-    const templatesRepo = getTemplatesRepo()
-    const defaultTemplate = await templatesRepo.getDefault()
+    const templatesService = getTemplatesService()
+    const defaultTemplate = await templatesService.getDefaultTemplate()
 
     if (defaultTemplate) {
       return defaultTemplate.content

@@ -40,7 +40,6 @@ export const ImportButton = ({
             id: crypto.randomUUID(),
             name: template.name,
             content: template.content,
-            isDefault: false,
             createdAt: Date.now(),
             updatedAt: Date.now(),
           }) as const satisfies Template,
