@@ -18,7 +18,6 @@ vi.mock("@/utils/templatesService", () => ({
       id: "test-template",
       name: "Test Template",
       content: TEST_TEMPLATE,
-      isDefault: true,
       createdAt: Date.now(),
       updatedAt: Date.now(),
     }),

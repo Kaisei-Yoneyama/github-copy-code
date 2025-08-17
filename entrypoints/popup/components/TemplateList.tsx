@@ -16,6 +16,7 @@ import styles from "./TemplateList.module.css"
 
 interface TemplateListProps {
   templates: Template[]
+  defaultTemplateId: string | null
   loading: boolean
   error: string | null
   onEdit: (template: Template) => void
@@ -25,6 +26,7 @@ interface TemplateListProps {
 
 export const TemplateList = ({
   templates,
+  defaultTemplateId,
   loading,
   error,
   onEdit,
@@ -59,8 +61,8 @@ export const TemplateList = ({
 
   // デフォルトテンプレートを最初に置き、それ以降は更新日時の降順でソート
   const sortedTemplates = templates.toSorted((a, b) => {
-    if (a.isDefault) return -1
-    if (b.isDefault) return 1
+    if (a.id === defaultTemplateId) return -1
+    if (b.id === defaultTemplateId) return 1
     return b.updatedAt - a.updatedAt
   })
 
@@ -89,7 +91,7 @@ export const TemplateList = ({
             role="listitem"
             aria-label={`Template: ${template.name}`}
             className={styles.templateCard}
-            data-default={template.isDefault}
+            data-default={template.id === defaultTemplateId}
           >
             <Stack
               direction="horizontal"
@@ -100,7 +102,7 @@ export const TemplateList = ({
               <Heading as="h3" style={{ fontSize: "14px", margin: 0 }}>
                 {template.name}
               </Heading>
-              {template.isDefault && (
+              {template.id === defaultTemplateId && (
                 <Label variant="accent" size="small">
                   Default
                 </Label>
@@ -123,7 +125,7 @@ export const TemplateList = ({
               justify="space-between"
             >
               {/* NOTE: <ButtonGroup /> の中で条件付きレンダーすると、左側のボタンが角丸にならない問題があるため、とりあえず別々の <ButtonGroup /> にして回避 */}
-              {template.isDefault ? (
+              {template.id === defaultTemplateId ? (
                 <ButtonGroup>
                   <IconButton
                     size="small"

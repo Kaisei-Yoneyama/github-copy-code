@@ -18,6 +18,7 @@ import { useTemplates } from "./hooks/useTemplates"
 const App = () => {
   const {
     templates,
+    defaultTemplateId,
     loading,
     error,
     createTemplate,
@@ -115,6 +116,7 @@ const App = () => {
             )}
             <TemplateList
               templates={templates}
+              defaultTemplateId={defaultTemplateId}
               loading={loading}
               error={error}
               onEdit={handleEdit}

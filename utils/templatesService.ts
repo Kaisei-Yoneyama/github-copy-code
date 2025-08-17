@@ -41,14 +41,24 @@ export interface TemplatesService {
 
 const createTemplatesService = (
   templatesRepo: TemplatesRepo,
+  settingsRepo: SettingsRepo,
 ): TemplatesService => {
+  const SETTINGS_ID = "default"
+
   return {
     async getAllTemplates(): Promise<Template[]> {
       return templatesRepo.getAll()
     },
 
     async getDefaultTemplate(): Promise<Template | null> {
-      return templatesRepo.getDefault()
+      const settings = await settingsRepo.getOne(SETTINGS_ID)
+      const defaultTemplateId = settings?.defaultTemplateId
+
+      if (!defaultTemplateId) {
+        return null
+      }
+
+      return templatesRepo.getOne(defaultTemplateId)
     },
 
     async createTemplate(name: string, content: string): Promise<Template> {
@@ -56,7 +66,6 @@ const createTemplatesService = (
         id: crypto.randomUUID(),
         name,
         content,
-        isDefault: false,
         createdAt: Date.now(),
         updatedAt: Date.now(),
       } as const satisfies Template
@@ -86,11 +95,40 @@ const createTemplatesService = (
     },
 
     async deleteTemplate(id: string): Promise<void> {
+      const settings = await settingsRepo.getOne(SETTINGS_ID)
+
+      if (settings?.defaultTemplateId === id) {
+        await settingsRepo.createOrUpdate({
+          ...settings,
+          defaultTemplateId: null,
+          updatedAt: Date.now(),
+        })
+      }
+
       await templatesRepo.delete(id)
     },
 
     async setDefaultTemplate(id: string): Promise<void> {
-      await templatesRepo.setDefault(id)
+      const template = await templatesRepo.getOne(id)
+
+      if (!template) {
+        throw new Error("Template not found")
+      }
+
+      const existingSettings = await settingsRepo.getOne(SETTINGS_ID)
+      const settings = existingSettings
+        ? ({
+            ...existingSettings,
+            defaultTemplateId: id,
+            updatedAt: Date.now(),
+          } as const satisfies Settings)
+        : ({
+            id: SETTINGS_ID,
+            defaultTemplateId: id,
+            createdAt: Date.now(),
+            updatedAt: Date.now(),
+          } as const satisfies Settings)
+      await settingsRepo.createOrUpdate(settings)
     },
   }
 }

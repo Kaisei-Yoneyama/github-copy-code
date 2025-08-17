@@ -2,7 +2,11 @@ import { useCallback, useEffect, useState } from "react"
 
 export const useTemplates = () => {
   const templatesService = getTemplatesService()
+  const settingsService = getSettingsService()
   const [templates, setTemplates] = useState<Template[]>([])
+  const [defaultTemplateId, setDefaultTemplateId] = useState<string | null>(
+    null,
+  )
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
@@ -10,8 +14,12 @@ export const useTemplates = () => {
     try {
       setLoading(true)
       setError(null)
-      const allTemplates = await templatesService.getAllTemplates()
+      const [allTemplates, defaultTemplateId] = await Promise.all([
+        templatesService.getAllTemplates(),
+        settingsService.getDefaultTemplateId(),
+      ])
       setTemplates(allTemplates)
+      setDefaultTemplateId(defaultTemplateId)
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to load templates")
     } finally {
@@ -82,6 +90,7 @@ export const useTemplates = () => {
 
   return {
     templates,
+    defaultTemplateId,
     loading,
     error,
     createTemplate,
