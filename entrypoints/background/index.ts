@@ -3,6 +3,7 @@ import { onMessage } from "@/entrypoints/background/messaging"
 export default defineBackground(() => {
   const db = openExtensionDatabase()
   registerTemplatesRepo(db)
+  registerTemplatesService(getTemplatesRepo())
 
   onMessage("fetchUrl", async (message) => {
     const response = await fetch(message.data)
