@@ -44,11 +44,14 @@ const App = () => {
     setShowDialog(true)
   }
 
-  const handleSave = async (data: Pick<Template, "name" | "content">) => {
+  const handleSave = async (
+    data: Pick<Template, "name" | "content">,
+    isDefault: boolean,
+  ) => {
     if (editingTemplate) {
-      await updateTemplate(editingTemplate.id, data)
+      await updateTemplate(editingTemplate.id, data, isDefault)
     } else {
-      await createTemplate(data)
+      await createTemplate(data, isDefault)
     }
     setShowDialog(false)
   }
@@ -128,6 +131,7 @@ const App = () => {
         {showDialog && (
           <TemplateFormDialog
             template={editingTemplate}
+            defaultTemplateId={defaultTemplateId}
             onSave={handleSave}
             onClose={handleClose}
           />

@@ -1,11 +1,21 @@
-import { Dialog, FormControl, Textarea, TextInput } from "@primer/react"
+import {
+  Checkbox,
+  Dialog,
+  FormControl,
+  Textarea,
+  TextInput,
+} from "@primer/react"
 import { Banner } from "@primer/react/experimental"
 import mustache from "mustache"
 import { FormEvent, useEffect, useState } from "react"
 
 interface TemplateFormDialogProps {
   template: Template | null
-  onSave: (data: Pick<Template, "name" | "content">) => Promise<void>
+  defaultTemplateId: string | null
+  onSave: (
+    data: Pick<Template, "name" | "content">,
+    isDefault: boolean,
+  ) => Promise<void>
   onClose: () => void
   returnFocusRef?: React.RefObject<HTMLElement>
 }
@@ -18,6 +28,7 @@ interface Errors {
 
 export const TemplateFormDialog = ({
   template,
+  defaultTemplateId,
   onSave,
   onClose,
   returnFocusRef,
@@ -25,15 +36,17 @@ export const TemplateFormDialog = ({
   const formId = "template-form"
   const [name, setName] = useState("")
   const [content, setContent] = useState("")
+  const [isDefault, setIsDefault] = useState(false)
   const [errors, setErrors] = useState<Errors>({})
   const [validated, setValidated] = useState(false)
 
   useEffect(() => {
     setName(template?.name || "")
     setContent(template?.content || "")
+    setIsDefault(template?.id === defaultTemplateId)
     setValidated(false)
     setErrors({})
-  }, [template])
+  }, [template, defaultTemplateId])
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -61,10 +74,13 @@ export const TemplateFormDialog = ({
     }
 
     try {
-      await onSave({
-        name: name.trim(),
-        content: content.trim(),
-      })
+      await onSave(
+        {
+          name: name.trim(),
+          content: content.trim(),
+        },
+        isDefault,
+      )
       onClose()
     } catch (err) {
       setErrors({
@@ -77,6 +93,7 @@ export const TemplateFormDialog = ({
     setValidated(false)
     setName("")
     setContent("")
+    setIsDefault(false)
     setErrors({})
     onClose()
   }
@@ -152,6 +169,16 @@ export const TemplateFormDialog = ({
                 {errors.content}
               </FormControl.Validation>
             )}
+          </FormControl>
+        </div>
+        <div style={{ marginBottom: 8 }}>
+          <FormControl>
+            <Checkbox
+              name="default"
+              checked={isDefault}
+              onChange={(e) => setIsDefault(e.target.checked)}
+            />
+            <FormControl.Label>Set as default template</FormControl.Label>
           </FormControl>
         </div>
       </form>
