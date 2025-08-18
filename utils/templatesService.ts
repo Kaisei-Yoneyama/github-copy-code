@@ -15,16 +15,27 @@ export interface TemplatesService {
    * テンプレートを作成する
    * @param name テンプレートの名前
    * @param content テンプレートの内容
+   * @param isDefault デフォルトとして設定するか
    */
-  createTemplate(name: string, content: string): Promise<Template>
+  createTemplate(
+    name: string,
+    content: string,
+    isDefault?: boolean,
+  ): Promise<Template>
 
   /**
    * テンプレートを更新する
    * @param id テンプレート ID
    * @param name テンプレートの名前
    * @param content テンプレートの内容
+   * @param isDefault デフォルトとして設定するか
    */
-  updateTemplate(id: string, name: string, content: string): Promise<Template>
+  updateTemplate(
+    id: string,
+    name: string,
+    content: string,
+    isDefault?: boolean,
+  ): Promise<Template>
 
   /**
    * テンプレートを削除する
@@ -61,7 +72,11 @@ const createTemplatesService = (
       return templatesRepo.getOne(defaultTemplateId)
     },
 
-    async createTemplate(name: string, content: string): Promise<Template> {
+    async createTemplate(
+      name: string,
+      content: string,
+      isDefault?: boolean,
+    ): Promise<Template> {
       const newTemplate = {
         id: crypto.randomUUID(),
         name,
@@ -70,6 +85,24 @@ const createTemplatesService = (
         updatedAt: Date.now(),
       } as const satisfies Template
       await templatesRepo.createOrUpdate(newTemplate)
+
+      if (isDefault) {
+        const existingSettings = await settingsRepo.getOne(SETTINGS_ID)
+        const settings = existingSettings
+          ? ({
+              ...existingSettings,
+              defaultTemplateId: newTemplate.id,
+              updatedAt: Date.now(),
+            } as const satisfies Settings)
+          : ({
+              id: SETTINGS_ID,
+              defaultTemplateId: newTemplate.id,
+              createdAt: Date.now(),
+              updatedAt: Date.now(),
+            } as const satisfies Settings)
+        await settingsRepo.createOrUpdate(settings)
+      }
+
       return newTemplate
     },
 
@@ -77,6 +110,7 @@ const createTemplatesService = (
       id: string,
       name: string,
       content: string,
+      isDefault?: boolean,
     ): Promise<Template> {
       const existingTemplate = await templatesRepo.getOne(id)
 
@@ -91,6 +125,24 @@ const createTemplatesService = (
         updatedAt: Date.now(),
       } as const satisfies Template
       await templatesRepo.createOrUpdate(updatedTemplate)
+
+      if (isDefault !== undefined) {
+        const existingSettings = await settingsRepo.getOne(SETTINGS_ID)
+        const settings = existingSettings
+          ? ({
+              ...existingSettings,
+              defaultTemplateId: isDefault ? id : null,
+              updatedAt: Date.now(),
+            } as const satisfies Settings)
+          : ({
+              id: SETTINGS_ID,
+              defaultTemplateId: isDefault ? id : null,
+              createdAt: Date.now(),
+              updatedAt: Date.now(),
+            } as const satisfies Settings)
+        await settingsRepo.createOrUpdate(settings)
+      }
+
       return updatedTemplate
     },
 

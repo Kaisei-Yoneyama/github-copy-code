@@ -23,11 +23,14 @@ export async function openPopup(page: Page, extensionId: string) {
 
     // MARK: - 主要操作
 
-    async createTemplate(name: string, content: string) {
+    async createTemplate(name: string, content: string, isDefault = false) {
       await this.clickNewButton()
       await this.waitForFormDialog()
       await this.fillTemplateNameInput(name)
       await this.fillTemplateContentTextArea(content)
+      if (isDefault) {
+        await this.checkDefaultCheckbox()
+      }
       await this.clickCreateOrUpdateButton()
       await this.waitForFormDialogToClose()
     },
@@ -36,11 +39,19 @@ export async function openPopup(page: Page, extensionId: string) {
       templateName: string,
       newName: string,
       newContent: string,
+      isDefault?: boolean,
     ) {
       await this.clickEditButton(templateName)
       await this.waitForFormDialog()
       await this.fillTemplateNameInput(newName)
       await this.fillTemplateContentTextArea(newContent)
+      if (isDefault !== undefined) {
+        if (isDefault) {
+          await this.checkDefaultCheckbox()
+        } else {
+          await this.uncheckDefaultCheckbox()
+        }
+      }
       await this.clickCreateOrUpdateButton()
       await this.waitForFormDialogToClose()
     },
@@ -134,6 +145,20 @@ export async function openPopup(page: Page, extensionId: string) {
     async fillTemplateContentTextArea(content: string) {
       const contentTextarea = page.locator('textarea[name="content"]')
       await contentTextarea.fill(content)
+    },
+
+    async checkDefaultCheckbox() {
+      const checkbox = page.locator('input[name="default"]')
+      await checkbox.check()
+    },
+
+    async uncheckDefaultCheckbox() {
+      const checkbox = page.locator('input[name="default"]')
+      await checkbox.uncheck()
+    },
+
+    isDefaultCheckboxChecked() {
+      return page.locator('input[name="default"]').isChecked()
     },
 
     // MARK: - 待機処理
