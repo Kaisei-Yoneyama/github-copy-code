@@ -147,6 +147,84 @@ test.describe("ポップアップ", () => {
     )
   })
 
+  test("作成時にデフォルトとして設定できる", async ({ page, extensionId }) => {
+    const popup = await openPopup(page, extensionId)
+
+    // デフォルトとして作成
+    await popup.createTemplate("Default Template", TEST_TEMPLATE, true)
+
+    // デフォルトに設定されていることを確認
+    await expect(popup.getTemplateListItem("Default Template")).toHaveAttribute(
+      "data-default",
+      "true",
+    )
+
+    // 通常のテンプレートを作成（デフォルト設定を変更しない）
+    await popup.createTemplate("Normal Template", TEST_TEMPLATE, false)
+
+    // デフォルトが変更されていないことを確認
+    await expect(popup.getTemplateListItem("Default Template")).toHaveAttribute(
+      "data-default",
+      "true",
+    )
+    await expect(popup.getTemplateListItem("Normal Template")).toHaveAttribute(
+      "data-default",
+      "false",
+    )
+  })
+
+  test("編集時にデフォルトとして設定できる", async ({ page, extensionId }) => {
+    const popup = await openPopup(page, extensionId)
+
+    // 通常のテンプレートを作成
+    await popup.createTemplate("Test Template A", TEST_TEMPLATE)
+    await popup.createTemplate("Test Template B", TEST_TEMPLATE)
+
+    // Test Template B を編集してデフォルトに設定
+    await popup.editTemplate(
+      "Test Template B",
+      "Test Template B Updated",
+      TEST_TEMPLATE,
+      true,
+    )
+
+    // Test Template B がデフォルトに設定されていることを確認
+    await expect(popup.getTemplateListItem("Test Template A")).toHaveAttribute(
+      "data-default",
+      "false",
+    )
+    await expect(
+      popup.getTemplateListItem("Test Template B Updated"),
+    ).toHaveAttribute("data-default", "true")
+  })
+
+  test("編集時にデフォルトを解除できる", async ({ page, extensionId }) => {
+    const popup = await openPopup(page, extensionId)
+
+    // デフォルトテンプレートを作成
+    await popup.createTemplate("Default Template", TEST_TEMPLATE, true)
+
+    // デフォルトに設定されていることを確認
+    await expect(popup.getTemplateListItem("Default Template")).toHaveAttribute(
+      "data-default",
+      "true",
+    )
+
+    // デフォルトを解除
+    await popup.editTemplate(
+      "Default Template",
+      "Default Template",
+      TEST_TEMPLATE,
+      false,
+    )
+
+    // デフォルトが解除されていることを確認
+    await expect(popup.getTemplateListItem("Default Template")).toHaveAttribute(
+      "data-default",
+      "false",
+    )
+  })
+
   test("複数のテンプレートを管理できる", async ({ page, extensionId }) => {
     const popup = await openPopup(page, extensionId)
 
