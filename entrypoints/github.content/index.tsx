@@ -75,15 +75,25 @@ const main = async (ctx: ContentScriptContext) => {
   )
 
   for (const [filePath, patch] of patchMap) {
+    /*
+     * ボタンを挿入する位置を探す
+     * - コミットページ: コラプスボタンを基準として、その親要素の次の要素
+     * - プルリクページ: ファイルリンクを基準として、その親要素
+     */
+    const collapseButton = document.querySelector(
+      `button[aria-label="Collapse file: ${filePath}" i]`,
+    )
+    const fileLink = document.querySelector(`a[title="${filePath}"]`)
+    const anchor =
+      collapseButton?.parentElement?.nextElementSibling ??
+      fileLink?.parentElement
+
     const ui = await createShadowRootUi(ctx, {
       name: `clipboard-copy-${browser.runtime.id}`,
 
       position: "inline",
 
-      anchor: [
-        `[aria-label="Collapse file: ${filePath}" i] + *`,
-        `:has(> [title="${filePath}"])`,
-      ].join(","),
+      anchor,
 
       onMount: (container, shadow) => {
         type ThemeProviderProps = ComponentProps<typeof ThemeProvider>
