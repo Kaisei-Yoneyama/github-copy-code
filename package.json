@@ -25,6 +25,7 @@
     "test:all": "pnpm test && pnpm test:e2e"
   },
   "dependencies": {
+    "@primer/octicons-react": "19.18.0",
     "@primer/primitives": "11.0.0",
     "@primer/react": "37.28.0",
     "@webcomponents/custom-elements": "1.6.0",
