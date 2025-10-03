@@ -42,7 +42,7 @@ GitHub の差分ページでコードをクリップボードにコピーでき�
 生成された ZIP ファイルは `.output` ディレクトリに出力されます。
 
 ```bash
-npm run zip
+pnpm zip
 ```
 
 ## テスト
@@ -53,19 +53,19 @@ npm run zip
 
 ```bash
 # ユニットテストを実行
-npm test
+pnpm test
 
 # ユニットテストをウォッチモードで実行
-npm run test:watch
+pnpm test:watch
 
 # E2E テストを実行
-npm run test:e2e
+pnpm test:e2e
 
 # E2E テストを UI モードで実行
-npm run test:e2e:ui
+pnpm test:e2e:ui
 
 # すべてのテストを実行
-npm run test:all
+pnpm test:all
 ```
 
 ### テスト構成
