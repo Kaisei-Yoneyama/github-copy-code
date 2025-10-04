@@ -16,7 +16,7 @@ const getTemplate = async (): Promise<string> => {
     const defaultTemplate = await templatesService.getDefaultTemplate()
 
     if (defaultTemplate) {
-      return defaultTemplate.content
+      return defaultTemplate.source
     }
   } catch (error) {
     console.error("Failed to get default template:", error)

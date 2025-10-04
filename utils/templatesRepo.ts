@@ -4,7 +4,7 @@ import { IDBPDatabase } from "idb"
 export interface Template {
   id: string
   name: string
-  content: string
+  source: string
   createdAt: number
   updatedAt: number
 }

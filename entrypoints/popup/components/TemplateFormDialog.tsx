@@ -13,7 +13,7 @@ interface TemplateFormDialogProps {
   template: Template | null
   defaultTemplateId: string | null
   onSave: (
-    data: Pick<Template, "name" | "content">,
+    data: Pick<Template, "name" | "source">,
     isDefault: boolean,
   ) => Promise<void>
   onClose: () => void
@@ -22,7 +22,7 @@ interface TemplateFormDialogProps {
 
 interface Errors {
   name?: string
-  content?: string
+  source?: string
   general?: string
 }
 
@@ -35,14 +35,14 @@ export const TemplateFormDialog = ({
 }: TemplateFormDialogProps) => {
   const formId = "template-form"
   const [name, setName] = useState("")
-  const [content, setContent] = useState("")
+  const [source, setSource] = useState("")
   const [isDefault, setIsDefault] = useState(false)
   const [errors, setErrors] = useState<Errors>({})
   const [validated, setValidated] = useState(false)
 
   useEffect(() => {
     setName(template?.name || "")
-    setContent(template?.content || "")
+    setSource(template?.source || "")
     setIsDefault(template?.id === defaultTemplateId)
     setValidated(false)
     setErrors({})
@@ -57,14 +57,14 @@ export const TemplateFormDialog = ({
     if (!name.trim()) {
       newErrors.name = "Template name is required"
     }
-    if (!content.trim()) {
-      newErrors.content = "Template content is required"
+    if (!source.trim()) {
+      newErrors.source = "Template source is required"
     }
 
     try {
-      mustache.parse(content)
+      mustache.parse(source)
     } catch (err) {
-      newErrors.content =
+      newErrors.source =
         err instanceof Error ? err.message : "Invalid Mustache syntax"
     }
 
@@ -77,7 +77,7 @@ export const TemplateFormDialog = ({
       await onSave(
         {
           name: name.trim(),
-          content: content.trim(),
+          source: source.trim(),
         },
         isDefault,
       )
@@ -92,7 +92,7 @@ export const TemplateFormDialog = ({
   const handleClose = () => {
     setValidated(false)
     setName("")
-    setContent("")
+    setSource("")
     setIsDefault(false)
     setErrors({})
     onClose()
@@ -150,23 +150,23 @@ export const TemplateFormDialog = ({
         </div>
         <div style={{ marginBottom: 8 }}>
           <FormControl required>
-            <FormControl.Label>Template content</FormControl.Label>
+            <FormControl.Label>Template source</FormControl.Label>
             <Textarea
-              name="content"
+              name="source"
               rows={10}
               placeholder="{{#hunkList}}&#13;{{#collapseWhitespace}}```{{langId}} {{#isFirst}}filePath={{filePath}}{{/isFirst}} newStart={{newStart}} oldStart={{oldStart}}{{/collapseWhitespace}}&#13;{{{code}}}&#13;```&#13;{{/hunkList}}"
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
+              value={source}
+              onChange={(e) => setSource(e.target.value)}
               validationStatus={
-                validated && errors.content ? "error" : undefined
+                validated && errors.source ? "error" : undefined
               }
               block
               resize="vertical"
               style={{ fontFamily: "monospace" }}
             />
-            {validated && errors.content && (
+            {validated && errors.source && (
               <FormControl.Validation variant="error">
-                {errors.content}
+                {errors.source}
               </FormControl.Validation>
             )}
           </FormControl>

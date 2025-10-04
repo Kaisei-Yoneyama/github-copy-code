@@ -14,12 +14,12 @@ export interface TemplatesService {
   /**
    * テンプレートを作成する
    * @param name テンプレートの名前
-   * @param content テンプレートの内容
+   * @param source テンプレートの内容
    * @param isDefault デフォルトとして設定するか
    */
   createTemplate(
     name: string,
-    content: string,
+    source: string,
     isDefault?: boolean,
   ): Promise<Template>
 
@@ -27,13 +27,13 @@ export interface TemplatesService {
    * テンプレートを更新する
    * @param id テンプレート ID
    * @param name テンプレートの名前
-   * @param content テンプレートの内容
+   * @param source テンプレートの内容
    * @param isDefault デフォルトとして設定するか
    */
   updateTemplate(
     id: string,
     name: string,
-    content: string,
+    source: string,
     isDefault?: boolean,
   ): Promise<Template>
 
@@ -74,13 +74,13 @@ const createTemplatesService = (
 
     async createTemplate(
       name: string,
-      content: string,
+      source: string,
       isDefault?: boolean,
     ): Promise<Template> {
       const newTemplate = {
         id: crypto.randomUUID(),
         name,
-        content,
+        source,
         createdAt: Date.now(),
         updatedAt: Date.now(),
       } as const satisfies Template
@@ -109,7 +109,7 @@ const createTemplatesService = (
     async updateTemplate(
       id: string,
       name: string,
-      content: string,
+      source: string,
       isDefault?: boolean,
     ): Promise<Template> {
       const existingTemplate = await templatesRepo.getOne(id)
@@ -121,7 +121,7 @@ const createTemplatesService = (
       const updatedTemplate = {
         ...existingTemplate,
         name,
-        content,
+        source,
         updatedAt: Date.now(),
       } as const satisfies Template
       await templatesRepo.createOrUpdate(updatedTemplate)

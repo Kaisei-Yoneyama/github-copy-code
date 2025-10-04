@@ -116,7 +116,7 @@ export const TemplateList = ({
                   color: "var(--fgColor-default)",
                 }}
               >
-                {template.content}
+                {template.source}
               </code>
             </pre>
             <Stack

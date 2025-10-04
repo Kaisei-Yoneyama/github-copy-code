@@ -17,7 +17,7 @@ vi.mock("@/utils/templatesService", () => ({
     getDefaultTemplate: vi.fn().mockResolvedValue({
       id: "test-template",
       name: "Test Template",
-      content: TEST_TEMPLATE,
+      source: TEST_TEMPLATE,
       createdAt: Date.now(),
       updatedAt: Date.now(),
     }),
