@@ -23,11 +23,11 @@ export async function openPopup(page: Page, extensionId: string) {
 
     // MARK: - 主要操作
 
-    async createTemplate(name: string, content: string, isDefault = false) {
+    async createTemplate(name: string, source: string, isDefault = false) {
       await this.clickNewButton()
       await this.waitForFormDialog()
       await this.fillTemplateNameInput(name)
-      await this.fillTemplateContentTextArea(content)
+      await this.fillTemplateSourceTextArea(source)
       if (isDefault) {
         await this.checkDefaultCheckbox()
       }
@@ -38,13 +38,13 @@ export async function openPopup(page: Page, extensionId: string) {
     async editTemplate(
       templateName: string,
       newName: string,
-      newContent: string,
+      newSource: string,
       isDefault?: boolean,
     ) {
       await this.clickEditButton(templateName)
       await this.waitForFormDialog()
       await this.fillTemplateNameInput(newName)
-      await this.fillTemplateContentTextArea(newContent)
+      await this.fillTemplateSourceTextArea(newSource)
       if (isDefault !== undefined) {
         if (isDefault) {
           await this.checkDefaultCheckbox()
@@ -63,11 +63,11 @@ export async function openPopup(page: Page, extensionId: string) {
       await this.waitForConfirmDialogToClose()
     },
 
-    async cancelCreateTemplate(name?: string, content?: string) {
+    async cancelCreateTemplate(name?: string, source?: string) {
       await this.clickNewButton()
       await this.waitForFormDialog()
       if (name) await this.fillTemplateNameInput(name)
-      if (content) await this.fillTemplateContentTextArea(content)
+      if (source) await this.fillTemplateSourceTextArea(source)
       await this.clickCancelCreateOrUpdateButton()
       await this.waitForFormDialogToClose()
     },
@@ -75,12 +75,12 @@ export async function openPopup(page: Page, extensionId: string) {
     async cancelEditTemplate(
       templateName: string,
       newName?: string,
-      newContent?: string,
+      newSource?: string,
     ) {
       await this.clickEditButton(templateName)
       await this.waitForFormDialog()
       if (newName) await this.fillTemplateNameInput(newName)
-      if (newContent) await this.fillTemplateContentTextArea(newContent)
+      if (newSource) await this.fillTemplateSourceTextArea(newSource)
       await this.clickCancelCreateOrUpdateButton()
       await this.waitForFormDialogToClose()
     },
@@ -142,9 +142,9 @@ export async function openPopup(page: Page, extensionId: string) {
       await nameInput.fill(name)
     },
 
-    async fillTemplateContentTextArea(content: string) {
-      const contentTextarea = page.locator('textarea[name="content"]')
-      await contentTextarea.fill(content)
+    async fillTemplateSourceTextArea(source: string) {
+      const sourceTextarea = page.locator('textarea[name="source"]')
+      await sourceTextarea.fill(source)
     },
 
     async checkDefaultCheckbox() {

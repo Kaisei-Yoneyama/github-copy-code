@@ -45,7 +45,7 @@ const App = () => {
   }
 
   const handleSave = async (
-    data: Pick<Template, "name" | "content">,
+    data: Pick<Template, "name" | "source">,
     isDefault: boolean,
   ) => {
     if (editingTemplate) {

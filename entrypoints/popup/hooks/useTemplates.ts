@@ -33,13 +33,13 @@ export const useTemplates = () => {
 
   const createTemplate = useCallback(
     async (
-      template: Pick<Template, "name" | "content">,
+      template: Pick<Template, "name" | "source">,
       isDefault?: boolean,
     ) => {
       try {
         const newTemplate = await templatesService.createTemplate(
           template.name,
-          template.content,
+          template.source,
           isDefault,
         )
         await loadTemplates()
@@ -56,14 +56,14 @@ export const useTemplates = () => {
   const updateTemplate = useCallback(
     async (
       id: string,
-      template: Pick<Template, "name" | "content">,
+      template: Pick<Template, "name" | "source">,
       isDefault?: boolean,
     ) => {
       try {
         const updatedTemplate = await templatesService.updateTemplate(
           id,
           template.name,
-          template.content,
+          template.source,
           isDefault,
         )
         await loadTemplates()

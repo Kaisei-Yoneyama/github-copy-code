@@ -28,7 +28,7 @@ export const ImportButton = ({
         !data.every(
           (template) =>
             typeof template?.name === "string" &&
-            typeof template?.content === "string",
+            typeof template?.source === "string",
         )
       ) {
         throw new Error("Invalid format")
@@ -39,7 +39,7 @@ export const ImportButton = ({
           ({
             id: crypto.randomUUID(),
             name: template.name,
-            content: template.content,
+            source: template.source,
             createdAt: Date.now(),
             updatedAt: Date.now(),
           }) as const satisfies Template,
