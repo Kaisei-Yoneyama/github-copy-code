@@ -75,16 +75,17 @@ const main = async (ctx: ContentScriptContext) => {
   )
 
   for (const [filePath, patch] of patchMap) {
-    /*
-     * ボタンを挿入する位置を探す
-     * - コミットページ: コラプスボタンを基準として、その親要素
-     * - プルリクページ: ファイルリンクを基準として、その親要素
-     */
-    const collapseButton = document.querySelector(
-      `button[aria-label="Expand all lines: ${filePath}" i]`,
-    )
-    const fileLink = document.querySelector(`a[title="${filePath}"]`)
-    const anchor = collapseButton?.parentElement ?? fileLink?.parentElement
+    const anchor = await Promise.any([
+      // コミットページ
+      waitForXPath<Element>(
+        `//div[h3[a[code[text()[contains(., "${filePath}")]]]]]`,
+        { signal: AbortSignal.timeout(5000) },
+      ),
+      // プルリクページ
+      waitForXPath<Element>(`//span[a[contains(text(), "${filePath}")]]`, {
+        signal: AbortSignal.timeout(5000),
+      }),
+    ]).catch(() => null)
 
     const ui = await createShadowRootUi(ctx, {
       name: `clipboard-copy-${browser.runtime.id}`,
