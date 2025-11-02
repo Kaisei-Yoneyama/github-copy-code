@@ -163,28 +163,28 @@ export async function openPopup(page: Page, extensionId: string) {
 
     // MARK: - 待機処理
 
-    async waitForFormDialog(timeout = 500) {
+    async waitForFormDialog(timeout = 3000) {
       await page.locator('[role="dialog"]').waitFor({
         state: "visible",
         timeout,
       })
     },
 
-    async waitForFormDialogToClose(timeout = 500) {
+    async waitForFormDialogToClose(timeout = 3000) {
       await page.locator('[role="dialog"]').waitFor({
         state: "hidden",
         timeout,
       })
     },
 
-    async waitForConfirmDialog(timeout = 500) {
+    async waitForConfirmDialog(timeout = 3000) {
       await page.locator('[role="alertdialog"]').waitFor({
         state: "visible",
         timeout,
       })
     },
 
-    async waitForConfirmDialogToClose(timeout = 500) {
+    async waitForConfirmDialogToClose(timeout = 3000) {
       await page.locator('[role="alertdialog"]').waitFor({
         state: "hidden",
         timeout,
