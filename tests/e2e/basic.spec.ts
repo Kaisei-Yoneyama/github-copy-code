@@ -3,7 +3,7 @@ import { expect, test } from "./fixtures"
 
 const EXPECTED_CLIPBOARD_TEXT = `
 <!-- Sample template -->
-\`\`\`diff-tsx filePath=entrypoints&#x2F;github.content&#x2F;index.tsx newStart=39 oldStart=39
+\`\`\`diff-tsx filePath=entrypoints/github.content/index.tsx newStart=39 oldStart=39
  
      await executeIfMatched(location)
  

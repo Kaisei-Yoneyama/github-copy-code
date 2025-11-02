@@ -1,5 +1,4 @@
 import type { StructuredPatch } from "diff"
-import mustache from "mustache"
 
 const SAMPLE_TEMPLATE = `
 <!-- Sample template -->
@@ -10,7 +9,7 @@ const SAMPLE_TEMPLATE = `
 {{/hunkList}}
 `
 
-const getTemplate = async (): Promise<string> => {
+const getTemplateSource = async (): Promise<string> => {
   try {
     const templatesService = getTemplatesService()
     const defaultTemplate = await templatesService.getDefaultTemplate()
@@ -67,7 +66,7 @@ export const renderToMarkup = async ({
     }
   })
 
-  const view = {
+  const context = {
     // 変数
     isAdded,
     isDeleted,
@@ -75,20 +74,31 @@ export const renderToMarkup = async ({
 
     // リスト
     hunkList,
-
-    // ラムダ
-    trimWhitespace:
-      () => (text: string, render: (template: string) => string) => {
-        const rendered = render(text)
-        return rendered.trim()
-      },
-    collapseWhitespace:
-      () => (text: string, render: (template: string) => string) => {
-        const rendered = render(text)
-        return rendered.replace(/\s+/g, " ")
-      },
   }
 
-  const template = await getTemplate()
-  return mustache.render(template, view)
+  const templateSource = await getTemplateSource()
+
+  const manifest = browser.runtime.getManifest()
+
+  if (manifest.sandbox) {
+    const response = await retry(() =>
+      sendMessage(
+        "render",
+        {
+          templateSource,
+          context,
+        },
+        ensureSandboxContentWindow(),
+      ),
+    )
+
+    if (!response.success) {
+      throw new Error(response.error)
+    }
+
+    return response.result
+  }
+
+  const renderer = getTemplateRenderer()
+  return renderer.render(templateSource, context)
 }

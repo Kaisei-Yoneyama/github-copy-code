@@ -11,7 +11,7 @@ GitHub の差分ページでコードをクリップボードにコピーでき�
 ![React](https://img.shields.io/badge/React-19.1.0-61DAFB?style=for-the-badge&logo=react)
 ![WXT](https://img.shields.io/badge/WXT-0.20.7-FF6000?style=for-the-badge&logo=wxt)
 ![Primer](https://img.shields.io/badge/Primer-37.28.0-24292e?style=for-the-badge&logo=github)
-![Mustache](https://img.shields.io/badge/Mustache-4.2.0-000000?style=for-the-badge)
+![Handlebars](https://img.shields.io/badge/Handlebars-4.7.8-000000?style=for-the-badge&logo=handlebarsdotjs)
 
 ## 対応ページ
 
@@ -123,11 +123,11 @@ pnpm test:all
 
 ## テンプレートの記法
 
-Mustache テンプレートエンジンを使用しているため、任意のマークアップのテンプレートを記述できます。
+Handlebars テンプレートエンジンを使用しているため、任意のマークアップのテンプレートを記述できます。
 
 > [!NOTE]
-> Mustache 構文の詳細は公式のマニュアルを参照してください。  
-> https://mustache.github.io/mustache.5.html
+> Handlebars 構文の詳細は公式のマニュアルを参照してください。  
+> https://handlebarsjs.com/guide/expressions.html
 
 ### `{{#trimWhitespace}} … {{/trimWhitespace}}`
 
@@ -198,8 +198,8 @@ Mustache テンプレートエンジンを使用しているため、任意の�
 - 説明: 最初のハンク/最後のハンクの場合のみ囲んだ内容を処理します。
 
 > [!TIP]
-> Section は条件を反転 (Inverted Section) させることもできます。詳細は公式のマニュアルを参照してください。  
-> https://mustache.github.io/mustache.5.html#Inverted-Sections
+> 条件を反転させることもできます。詳細は公式のマニュアルを参照してください。  
+> https://handlebarsjs.com/guide/builtin-helpers.html#unless
 
 ## テンプレートの例
 
@@ -207,7 +207,7 @@ Mustache テンプレートエンジンを使用しているため、任意の�
 
 以下はファイルパスや行番号を指定できるように拡張した Markdown コードブロックのためのテンプレートです。
 
-````mustache
+````handlebars
 {{#hunkList}}
 {{#collapseWhitespace}}```{{langId}} {{#isFirst}}filePath={{filePath}}{{/isFirst}} newStart={{newStart}} oldStart={{oldStart}}{{/collapseWhitespace}}
 {{{code}}}

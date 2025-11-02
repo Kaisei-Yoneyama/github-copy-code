@@ -6,7 +6,6 @@ import {
   TextInput,
 } from "@primer/react"
 import { Banner } from "@primer/react/experimental"
-import mustache from "mustache"
 import { FormEvent, useEffect, useState } from "react"
 
 interface TemplateFormDialogProps {
@@ -62,10 +61,20 @@ export const TemplateFormDialog = ({
     }
 
     try {
-      mustache.parse(source)
+      const response = await retry(() =>
+        sendMessage(
+          "validate",
+          { templateSource: source },
+          ensureSandboxContentWindow(),
+        ),
+      )
+
+      if (!response.success) {
+        newErrors.source = response.error
+      }
     } catch (err) {
       newErrors.source =
-        err instanceof Error ? err.message : "Invalid Mustache syntax"
+        err instanceof Error ? err.message : "Invalid Handlebars syntax"
     }
 
     if (Object.keys(newErrors).length) {
@@ -143,7 +152,7 @@ export const TemplateFormDialog = ({
             />
             {validated && errors.name && (
               <FormControl.Validation variant="error">
-                {errors.name}
+                <span style={{ whiteSpace: "pre-wrap" }}>{errors.name}</span>
               </FormControl.Validation>
             )}
           </FormControl>
@@ -166,7 +175,7 @@ export const TemplateFormDialog = ({
             />
             {validated && errors.source && (
               <FormControl.Validation variant="error">
-                {errors.source}
+                <span style={{ whiteSpace: "pre-wrap" }}>{errors.source}</span>
               </FormControl.Validation>
             )}
           </FormControl>
