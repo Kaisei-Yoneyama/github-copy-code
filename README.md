@@ -7,11 +7,11 @@ GitHub の差分ページでコードをクリップボードにコピーでき�
 
 ## 技術スタック
 
-![TypeScript](https://img.shields.io/badge/TypeScript-5.8.3-3178C6?style=for-the-badge&logo=typescript)
-![React](https://img.shields.io/badge/React-19.1.0-61DAFB?style=for-the-badge&logo=react)
-![WXT](https://img.shields.io/badge/WXT-0.20.7-FF6000?style=for-the-badge&logo=wxt)
-![Primer](https://img.shields.io/badge/Primer-37.28.0-24292e?style=for-the-badge&logo=github)
-![Handlebars](https://img.shields.io/badge/Handlebars-4.7.8-000000?style=for-the-badge&logo=handlebarsdotjs)
+![TypeScript](https://img.shields.io/badge/TypeScript-gray?style=for-the-badge&logo=typescript)
+![React](https://img.shields.io/badge/React-gray?style=for-the-badge&logo=react)
+![WXT](https://img.shields.io/badge/WXT-gray?style=for-the-badge&logo=wxt)
+![Primer](https://img.shields.io/badge/Primer-gray?style=for-the-badge&logo=github)
+![Handlebars](https://img.shields.io/badge/Handlebars-gray?style=for-the-badge&logo=handlebarsdotjs)
 
 ## 対応ページ
 
