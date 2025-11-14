@@ -112,13 +112,14 @@ pnpm test:all
 > [!WARNING]
 > デフォルトテンプレートが指定されていない場合は以下のサンプルテンプレートが使用されます。
 >
-> ````
+> <!-- prettier-ignore -->
+> ````handlebars
 > <!-- Sample template -->
-> {{#hunkList}}
-> {{#collapseWhitespace}}```{{langId}} {{#isFirst}}filePath={{filePath}}{{/isFirst}} newStart={{newStart}} oldStart={{oldStart}}{{/collapseWhitespace}}
+> {{#each hunkList}}
+> ```{{langId}} {{#if @first}}filePath={{{filePath}}} {{/if}}newStart={{newStart}} oldStart={{oldStart}}
 > {{{code}}}
 > ```
-> {{/hunkList}}
+> {{/each}}
 > ````
 
 ## テンプレートの記法
@@ -207,10 +208,11 @@ Handlebars テンプレートエンジンを使用しているため、任意の
 
 以下はファイルパスや行番号を指定できるように拡張した Markdown コードブロックのためのテンプレートです。
 
+<!-- prettier-ignore -->
 ````handlebars
-{{#hunkList}}
-{{#collapseWhitespace}}```{{langId}} {{#isFirst}}filePath={{filePath}}{{/isFirst}} newStart={{newStart}} oldStart={{oldStart}}{{/collapseWhitespace}}
+{{#each hunkList}}
+```{{langId}} {{#if @first}}filePath={{{filePath}}} {{/if}}newStart={{newStart}} oldStart={{oldStart}}
 {{{code}}}
 ```
-{{/hunkList}}
+{{/each}}
 ````
