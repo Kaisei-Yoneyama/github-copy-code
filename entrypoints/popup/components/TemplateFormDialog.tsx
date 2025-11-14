@@ -163,7 +163,7 @@ export const TemplateFormDialog = ({
             <Textarea
               name="source"
               rows={10}
-              placeholder="{{#hunkList}}&#13;{{#collapseWhitespace}}```{{langId}} {{#isFirst}}filePath={{filePath}}{{/isFirst}} newStart={{newStart}} oldStart={{oldStart}}{{/collapseWhitespace}}&#13;{{{code}}}&#13;```&#13;{{/hunkList}}"
+              placeholder="{{#each hunkList}}&#10;```{{langId}} {{#if @first}}filePath={{{filePath}}} {{/if}}newStart={{newStart}} oldStart={{oldStart}}&#10;{{{code}}}&#10;```&#10;{{/each}}"
               value={source}
               onChange={(e) => setSource(e.target.value)}
               validationStatus={

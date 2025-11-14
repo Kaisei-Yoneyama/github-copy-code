@@ -3,11 +3,11 @@ import { openPopup } from "./pages/popup"
 
 const TEST_TEMPLATE = `
 <!-- Test template -->
-{{#hunkList}}
-{{#collapseWhitespace}}\`\`\`{{langId}} {{#isFirst}}filePath={{filePath}}{{/isFirst}} newStart={{newStart}} oldStart={{oldStart}}{{/collapseWhitespace}}
+{{#each hunkList}}
+\`\`\`{{langId}} {{#if @first}}filePath={{{filePath}}} {{/if}}newStart={{newStart}} oldStart={{oldStart}}
 {{{code}}}
 \`\`\`
-{{/hunkList}}
+{{/each}}
 `
 
 test.describe("ポップアップ", () => {

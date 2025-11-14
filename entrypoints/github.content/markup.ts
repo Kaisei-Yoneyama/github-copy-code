@@ -2,11 +2,11 @@ import type { StructuredPatch } from "diff"
 
 const SAMPLE_TEMPLATE = `
 <!-- Sample template -->
-{{#hunkList}}
-{{#collapseWhitespace}}\`\`\`{{langId}} {{#isFirst}}filePath={{filePath}}{{/isFirst}} newStart={{newStart}} oldStart={{oldStart}}{{/collapseWhitespace}}
+{{#each hunkList}}
+\`\`\`{{langId}} {{#if @first}}filePath={{{filePath}}} {{/if}}newStart={{newStart}} oldStart={{oldStart}}
 {{{code}}}
 \`\`\`
-{{/hunkList}}
+{{/each}}
 `
 
 const getTemplateSource = async (): Promise<string> => {
