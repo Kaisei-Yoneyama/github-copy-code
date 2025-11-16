@@ -9,6 +9,13 @@ updates:
       timezone: "Asia/Tokyo"
     cooldown:
       default-days: 7
+    groups:
+      react:
+        patterns:
+          - "react"
+          - "react-dom"
+          - "@types/react"
+          - "@types/react-dom"
     ignore:
       - dependency-name: "*"
         update-types: ["version-update:semver-major"]
