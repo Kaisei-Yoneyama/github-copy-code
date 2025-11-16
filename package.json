@@ -27,7 +27,7 @@
   "dependencies": {
     "@primer/octicons-react": "19.20.0",
     "@primer/primitives": "11.0.0",
-    "@primer/react": "37.28.0",
+    "@primer/react": "37.31.0",
     "@webcomponents/custom-elements": "1.6.0",
     "@webext-core/messaging": "2.3.0",
     "@webext-core/proxy-service": "1.2.1",
