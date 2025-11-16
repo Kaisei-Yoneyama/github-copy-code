@@ -15,8 +15,8 @@ importers:
         specifier: 11.0.0
         version: 11.0.0
       '@primer/react':
-        specifier: 37.28.0
-        version: 37.28.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(@types/styled-components@5.1.34)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(styled-components@5.3.11(@babel/core@7.28.5)(react-dom@19.1.0(react@19.1.0))(react-is@18.3.1)(react@19.1.0))
+        specifier: 37.31.0
+        version: 37.31.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react-is@18.3.1)(@types/react@19.1.8)(@types/styled-components@5.1.34)(react-dom@19.1.0(react@19.1.0))(react-is@18.3.1)(react@19.1.0)(styled-components@5.3.11(@babel/core@7.28.5)(react-dom@19.1.0(react@19.1.0))(react-is@18.3.1)(react@19.1.0))
       '@webcomponents/custom-elements':
         specifier: 1.6.0
         version: 1.6.0
@@ -462,8 +462,8 @@ packages:
     resolution: {integrity: sha512-Z5kJ+wU3oA7MMIqVR9tyZRtjYPr4OC004Q4Rw7pgOKUOKkJfZ3O24nz3WYfGRpMDNmcOi3TwQOmgm7B7Tpii0w==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@github/relative-time-element@4.4.8':
-    resolution: {integrity: sha512-FSLYm6F3TSQnqHE1EMQUVVgi2XjbCvsESwwXfugHFpBnhyF1uhJOtu0Psp/BB/qqazfdkk7f5fVcu7WuXl3t8Q==}
+  '@github/relative-time-element@4.5.0':
+    resolution: {integrity: sha512-zKC/tUHeDDdbODBuZh3CkT5pCy41M8mGuUplzhtBMuiEQ5+qY/l/iu0X1IBY/6QhNeP/xdQIVkLYKh2O5En4dg==}
 
   '@github/tab-container-element@4.8.2':
     resolution: {integrity: sha512-WkaM4mfs8x7dXRWEaDb5deC0OhH6sGQ5cw8i/sVw25gikl4f8C7mHj0kihL5k3eKIIqmGT1Fdswdoi+9ZLDpRA==}
@@ -550,8 +550,8 @@ packages:
     resolution: {integrity: sha512-c83qWb22rNRuB0UaVCI0uRPNRr8Z0FWnEIvT47jiHAmOIUHbBOg5XvV7pM5x+rKn9HRpjxquDbXYSXr3fAKFcw==}
     engines: {node: '>=12'}
 
-  '@primer/behaviors@1.8.3':
-    resolution: {integrity: sha512-Cot5Jg5McTT4zg41omctzY60DygZ6qlhrBtD4rpDBM6vNi6CrCAs/2QSPAgYTW7Kz+jFp4BXJFhNcVqfqTgaxA==}
+  '@primer/behaviors@1.8.4':
+    resolution: {integrity: sha512-+z7LNbijJqBnsz1u9Jcgrc9yPLwGmzYMnI+yBiS1oNuEW1zLH5ZE7Kp9UFRo7fqPgM/IZ8xbtdTAuBZq9DPs7g==}
 
   '@primer/live-region-element@0.7.2':
     resolution: {integrity: sha512-wdxCHfcJzE1IPPjZNFR4RTwRcSWb7TN0fRdMH5HcxphLEnuZBWy0TAxk3xPA+/6lwiN3uEJ+ZWV4UF/glXh43A==}
@@ -565,20 +565,24 @@ packages:
   '@primer/primitives@11.0.0':
     resolution: {integrity: sha512-GREFF8jTAyfs8lMhLQLAtuqmd9LJqodfI1ejmUSL3IEWtoATRSQAy8eqksjV/LcJnJoKNft42hyAeAbawskpaw==}
 
-  '@primer/react@37.28.0':
-    resolution: {integrity: sha512-yQZs8LKuEOlMV7r8nph46+m2Jr349eiW3DaHzzFK9Yniw6z9DCmqQEBN7kNA1mCbKD1ayzUvTp4KCFedlBuVXA==}
+  '@primer/react@37.31.0':
+    resolution: {integrity: sha512-sK+/Ggy05yg3TaFdJRfEmRuaZBsmFD5P7nH1qyVqO9OeT8o2jnqnlBhef8TYX0gpNrLwWNcVrIIOP2Em6T6rrA==}
     engines: {node: '>=12', npm: '>=7'}
     peerDependencies:
       '@types/react': 18.x || 19.x
       '@types/react-dom': 18.x || 19.x
+      '@types/react-is': 18.x || 19.x
       '@types/styled-components': ^5.1.11
       react: 18.x || 19.x
       react-dom: 18.x || 19.x
+      react-is: 18.x || 19.x
       styled-components: 5.x
     peerDependenciesMeta:
       '@types/react':
         optional: true
       '@types/react-dom':
+        optional: true
+      '@types/react-is':
         optional: true
       '@types/styled-components':
         optional: true
@@ -810,8 +814,8 @@ packages:
   '@types/react-is@18.3.1':
     resolution: {integrity: sha512-zts4lhQn5ia0cF/y2+3V6Riu0MAfez9/LJYavdM8TvcVl+S91A/7VWxyBT8hbRuWspmuCaiGI0F41OJYGrKhRA==}
 
-  '@types/react@18.3.25':
-    resolution: {integrity: sha512-oSVZmGtDPmRZtVDqvdKUi/qgCsWp5IDY29wp8na8Bj4B3cc99hfNzvNhlMkVVxctkAOGUA3Km7MMpBHAnWfcIA==}
+  '@types/react@18.3.26':
+    resolution: {integrity: sha512-RFA/bURkcKzx/X9oumPG9Vp3D3JUgus/d0b67KB0t5S/raciymilkOa66olh78MUI92QLbEJevO7rvqU/kjwKA==}
 
   '@types/react@19.1.8':
     resolution: {integrity: sha512-AwAfQ2Wa5bCx9WP8nZL2uMZWod7J7/JSplxbTmBQ5ms6QpqNYm672H0Vu9ZVKVngQ+ii4R/byguVEUZQyeg44g==}
@@ -1307,6 +1311,9 @@ packages:
 
   csstype@3.1.3:
     resolution: {integrity: sha512-M1uQkMl8rQK/szD0LNhtqxIPLpimGm8sOBwU7lLnCpSbTyY3yeU1Vc7l4KT5zT4s/yOxHH5O7tIuuLOCnLADRw==}
+
+  csstype@3.2.1:
+    resolution: {integrity: sha512-98XGutrXoh75MlgLihlNxAGbUuFQc7l1cqcnEZlLNKc0UrVdPndgmaDmYTDDh929VS/eqTZV0rozmhu2qqT1/g==}
 
   data-view-buffer@1.0.2:
     resolution: {integrity: sha512-EmKO5V3OLXh1rtK2wgXRansaK1/mtVdTUEiEI0W8RkvgT05kfxaH29PliLnpLP73yYO6142Q72QNa8Wx/A5CqQ==}
@@ -3663,7 +3670,7 @@ snapshots:
       '@eslint/core': 0.15.2
       levn: 0.4.1
 
-  '@github/relative-time-element@4.4.8': {}
+  '@github/relative-time-element@4.5.0': {}
 
   '@github/tab-container-element@4.8.2': {}
 
@@ -3739,7 +3746,7 @@ snapshots:
       '@pnpm/network.ca-file': 1.0.2
       config-chain: 1.1.13
 
-  '@primer/behaviors@1.8.3': {}
+  '@primer/behaviors@1.8.4': {}
 
   '@primer/live-region-element@0.7.2':
     dependencies:
@@ -3751,20 +3758,19 @@ snapshots:
 
   '@primer/primitives@11.0.0': {}
 
-  '@primer/react@37.28.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(@types/styled-components@5.1.34)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(styled-components@5.3.11(@babel/core@7.28.5)(react-dom@19.1.0(react@19.1.0))(react-is@18.3.1)(react@19.1.0))':
+  '@primer/react@37.31.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react-is@18.3.1)(@types/react@19.1.8)(@types/styled-components@5.1.34)(react-dom@19.1.0(react@19.1.0))(react-is@18.3.1)(react@19.1.0)(styled-components@5.3.11(@babel/core@7.28.5)(react-dom@19.1.0(react@19.1.0))(react-is@18.3.1)(react@19.1.0))':
     dependencies:
-      '@github/relative-time-element': 4.4.8
+      '@github/relative-time-element': 4.5.0
       '@github/tab-container-element': 4.8.2
       '@lit-labs/react': 1.2.1
       '@oddbird/popover-polyfill': 0.5.2
-      '@primer/behaviors': 1.8.3
+      '@primer/behaviors': 1.8.4
       '@primer/live-region-element': 0.7.2
       '@primer/octicons-react': 19.20.0(react@19.1.0)
       '@primer/primitives': 11.0.0
       '@styled-system/css': 5.1.5
       '@styled-system/props': 5.1.5
       '@styled-system/theme-get': 5.1.2
-      '@types/react-is': 18.3.1
       '@types/styled-system': 5.1.24
       '@types/styled-system__css': 5.0.21
       '@types/styled-system__theme-get': 5.0.4
@@ -3787,6 +3793,7 @@ snapshots:
     optionalDependencies:
       '@types/react': 19.1.8
       '@types/react-dom': 19.1.6(@types/react@19.1.8)
+      '@types/react-is': 18.3.1
       '@types/styled-components': 5.1.34
 
   '@rolldown/pluginutils@1.0.0-beta.47': {}
@@ -3971,7 +3978,8 @@ snapshots:
     dependencies:
       undici-types: 7.13.0
 
-  '@types/prop-types@15.7.15': {}
+  '@types/prop-types@15.7.15':
+    optional: true
 
   '@types/react-dom@19.1.6(@types/react@19.1.8)':
     dependencies:
@@ -3979,12 +3987,14 @@ snapshots:
 
   '@types/react-is@18.3.1':
     dependencies:
-      '@types/react': 18.3.25
+      '@types/react': 18.3.26
+    optional: true
 
-  '@types/react@18.3.25':
+  '@types/react@18.3.26':
     dependencies:
       '@types/prop-types': 15.7.15
-      csstype: 3.1.3
+      csstype: 3.2.1
+    optional: true
 
   '@types/react@19.1.8':
     dependencies:
@@ -3998,11 +4008,11 @@ snapshots:
 
   '@types/styled-system@5.1.24':
     dependencies:
-      csstype: 3.1.3
+      csstype: 3.2.1
 
   '@types/styled-system__css@5.0.21':
     dependencies:
-      csstype: 3.1.3
+      csstype: 3.2.1
 
   '@types/styled-system__theme-get@5.0.4': {}
 
@@ -4594,6 +4604,8 @@ snapshots:
   cssom@0.5.0: {}
 
   csstype@3.1.3: {}
+
+  csstype@3.2.1: {}
 
   data-view-buffer@1.0.2:
     dependencies:
