@@ -34,8 +34,8 @@
     "diff": "8.0.2",
     "handlebars": "4.7.8",
     "idb": "8.0.3",
-    "react": "19.2.0",
-    "react-dom": "19.2.0",
+    "react": "19.2.1",
+    "react-dom": "19.2.1",
     "styled-components": "5.3.11"
   },
   "devDependencies": {
