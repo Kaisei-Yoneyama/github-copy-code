@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@primer/octicons-react':
-        specifier: 19.21.0
-        version: 19.21.0(react@19.2.1)
+        specifier: 19.21.1
+        version: 19.21.1(react@19.2.1)
       '@primer/primitives':
         specifier: 11.3.1
         version: 11.3.1
@@ -523,8 +523,8 @@ packages:
   '@primer/live-region-element@0.7.2':
     resolution: {integrity: sha512-wdxCHfcJzE1IPPjZNFR4RTwRcSWb7TN0fRdMH5HcxphLEnuZBWy0TAxk3xPA+/6lwiN3uEJ+ZWV4UF/glXh43A==}
 
-  '@primer/octicons-react@19.21.0':
-    resolution: {integrity: sha512-KMWYYEIDKNIY0N3fMmNGPWJGHgoJF5NHkJllpOM3upDXuLtAe26Riogp1cfYdhp+sVjGZMt32DxcUhTX7ZhLOQ==}
+  '@primer/octicons-react@19.21.1':
+    resolution: {integrity: sha512-DHaErpn2ZLMOJRxTdLf73eCDRvvil3xRmsOvKzg+I5KY0PsclYvEs/OX/Xb6fTK+PTteehidFvHBxrLYyEQ9Mg==}
     engines: {node: '>=8'}
     peerDependencies:
       react: '>=16.3'
@@ -3479,7 +3479,7 @@ snapshots:
     dependencies:
       '@lit-labs/ssr-dom-shim': 1.4.0
 
-  '@primer/octicons-react@19.21.0(react@19.2.1)':
+  '@primer/octicons-react@19.21.1(react@19.2.1)':
     dependencies:
       react: 19.2.1
 
@@ -3493,7 +3493,7 @@ snapshots:
       '@oddbird/popover-polyfill': 0.5.2
       '@primer/behaviors': 1.8.4
       '@primer/live-region-element': 0.7.2
-      '@primer/octicons-react': 19.21.0(react@19.2.1)
+      '@primer/octicons-react': 19.21.1(react@19.2.1)
       '@primer/primitives': 11.3.1
       '@styled-system/css': 5.1.5
       '@styled-system/props': 5.1.5
