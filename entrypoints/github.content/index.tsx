@@ -5,9 +5,6 @@ import { parsePatch, type StructuredPatch } from "diff"
 import type { ComponentProps } from "react"
 import ReactDOM from "react-dom/client"
 
-// NOTE: `@primer/react` の依存関係である `@primer/live-region-element` で `customElements` が参照されているが、コンテンツスクリプトからは使用できずエラーになってしまうのでこれで代替
-import "@webcomponents/custom-elements"
-
 import { StyleSheetManager } from "styled-components"
 import { BaseStyles, ThemeProvider, ButtonGroup } from "@primer/react"
 

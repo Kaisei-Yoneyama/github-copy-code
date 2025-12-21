@@ -1,0 +1,30 @@
+diff --git a/dist/cjs/index.cjs b/dist/cjs/index.cjs
+index 86e768c8c8b0b07b44a5f01d3863e1609c0a6e1e..b793d5c757de8f5e115990eaa161a78f9af8fe64 100644
+--- a/dist/cjs/index.cjs
++++ b/dist/cjs/index.cjs
+@@ -390,8 +390,8 @@ function compareMessages(a, b) {
+ function noop() {
+ }
+ 
+-if (!customElements.get("live-region")) {
+-  customElements.define("live-region", LiveRegionElement);
++if (!customElements?.get("live-region")) {
++  customElements?.define("live-region", LiveRegionElement);
+ }
+ 
+ function announce(message, options = {}) {
+diff --git a/dist/esm/index.js b/dist/esm/index.js
+index 6ee689e950d8a56dae3d2a08be3e075333cca934..ff14bcfdb31cf4ab61b794a3321ab3a9e512a0eb 100644
+--- a/dist/esm/index.js
++++ b/dist/esm/index.js
+@@ -388,8 +388,8 @@ function compareMessages(a, b) {
+ function noop() {
+ }
+ 
+-if (!customElements.get("live-region")) {
+-  customElements.define("live-region", LiveRegionElement);
++if (!customElements?.get("live-region")) {
++  customElements?.define("live-region", LiveRegionElement);
+ }
+ 
+ function announce(message, options = {}) {
