@@ -29,7 +29,7 @@
     "@primer/primitives": "11.3.2",
     "@primer/react": "37.31.0",
     "@webext-core/messaging": "2.3.0",
-    "@webext-core/proxy-service": "1.2.1",
+    "@webext-core/proxy-service": "1.2.2",
     "diff": "8.0.2",
     "handlebars": "4.7.8",
     "idb": "8.0.3",
