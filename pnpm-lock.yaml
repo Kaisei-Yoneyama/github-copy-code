@@ -17,8 +17,8 @@ importers:
         specifier: 19.24.1
         version: 19.24.1(react@19.2.5)
       '@primer/primitives':
-        specifier: 11.6.0
-        version: 11.6.0
+        specifier: 11.7.0
+        version: 11.7.0
       '@primer/react':
         specifier: 37.31.0
         version: 37.31.0(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(@types/styled-components@5.1.34)(react-dom@19.2.5(react@19.2.5))(react-is@16.13.1)(react@19.2.5)(styled-components@5.3.11(@babel/core@7.29.0)(react-dom@19.2.5(react@19.2.5))(react-is@16.13.1)(react@19.2.5))
@@ -702,8 +702,8 @@ packages:
     peerDependencies:
       react: '>=16.3'
 
-  '@primer/primitives@11.6.0':
-    resolution: {integrity: sha512-HiWlrszsC5KuxO3O8eciyXMT54JCLSHLJU1++/cnU9ufRVqKhzNmDtXKQwfK6JRqaIFYbBfF5Ze24wHUrY9KZA==}
+  '@primer/primitives@11.7.0':
+    resolution: {integrity: sha512-Z9c4bp0JHOivd1llTr2y1pl0J5+uW1PgnSzA13l+ocOCq703HNpWRi2bffyg06HBMltq3So1SjnovnIWtH3kIQ==}
 
   '@primer/react@37.31.0':
     resolution: {integrity: sha512-sK+/Ggy05yg3TaFdJRfEmRuaZBsmFD5P7nH1qyVqO9OeT8o2jnqnlBhef8TYX0gpNrLwWNcVrIIOP2Em6T6rrA==}
@@ -4164,7 +4164,7 @@ snapshots:
     dependencies:
       react: 19.2.5
 
-  '@primer/primitives@11.6.0': {}
+  '@primer/primitives@11.7.0': {}
 
   '@primer/react@37.31.0(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(@types/styled-components@5.1.34)(react-dom@19.2.5(react@19.2.5))(react-is@16.13.1)(react@19.2.5)(styled-components@5.3.11(@babel/core@7.29.0)(react-dom@19.2.5(react@19.2.5))(react-is@16.13.1)(react@19.2.5))':
     dependencies:
@@ -4175,7 +4175,7 @@ snapshots:
       '@primer/behaviors': 1.8.4
       '@primer/live-region-element': 0.7.2(patch_hash=8fe97271bd82d50ba5c715df28e5f84abc0c7579020f41aa7ed499fa973adab9)
       '@primer/octicons-react': 19.24.1(react@19.2.5)
-      '@primer/primitives': 11.6.0
+      '@primer/primitives': 11.7.0
       '@styled-system/css': 5.1.5
       '@styled-system/props': 5.1.5
       '@styled-system/theme-get': 5.1.2
